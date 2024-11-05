@@ -1,13 +1,19 @@
-RULES
+Peraturan
 
-// namain variable mewakili data tersebut //
-// camelCase (variableA) or underscore (variable_a) //
-// commit message (ex : add : nama_fitur, fix : bug_apa ) //
-// misalnya kode sudah aman dari bug push dulu ke safe //
+1. namain variable mewakili data tersebut //
+2. camelCase (variableA) or underscore (variable_a) //
+3.  commit message (ex : add : nama_fitur, fix : bug_apa ) //
+4. isalnya kode sudah aman dari bug push dulu ke safe //
+
+Step by step :
 
 1. Clone Dulu Projeknya banghhh
+ ```bash
     git clone https://github.com/FikriKCL/ProjekKampus.git
-2. Buat branch local dulu bangh
-    git branch nama_branch
-   kalau mau di up ke remote pakai git fetch lalu git push --set-upstream origin nama_branch
-3. Mantap!
+```
+3. Buat branch local dulu bangh
+```bash
+ git branch nama_branch
+```   
+4. kalau mau di up ke remote pakai git fetch lalu git push --set-upstream origin nama_branch
+5. Mantap!
