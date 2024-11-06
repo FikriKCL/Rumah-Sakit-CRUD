@@ -9,7 +9,7 @@ Step by step :
 
 1. Clone Dulu Projeknya banghhh
  ```bash
-    git clone https://github.com/FikriKCL/ProjekKampus.git
+    https://github.com/FikriKCL/Rumah-Sakit-CRUD.git
 ```
 3. Buat branch local dulu bangh
 ```bash
