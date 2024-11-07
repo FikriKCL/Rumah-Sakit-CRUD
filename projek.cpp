@@ -3,6 +3,9 @@
 #include <iomanip>  
 #include <thread>
 #include <vector>
+#include <fstream>
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
 
 using namespace std;
 
@@ -33,7 +36,6 @@ void menu() {
         }
         this_thread::sleep_for(1ms);
     }
-
   
 }
 
