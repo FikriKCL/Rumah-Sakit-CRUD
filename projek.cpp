@@ -4,10 +4,45 @@
 #include <thread>
 #include <vector>
 #include <fstream>
-#include <nlohmann/json.hpp>
-using json = nlohmann::json;
+#include "json.hpp"
+#include <conio.h>
 
+using json = nlohmann::json;
 using namespace std;
+
+const string fileJSON = "data.json";
+
+json loadData() {
+    std::ifstream file(fileJSON);
+
+    if (!file) {
+        std::cerr << "Error: Could not open the file." << std::endl;
+        return json{}; 
+    }
+
+    if (file.peek() == std::ifstream::traits_type::eof()) {
+        return json{};  
+    }
+
+    json data;
+    try {
+        file >> data;
+    } catch (const json::parse_error& e) {
+        std::cerr << "Parse error: " << e.what() << std::endl;
+    }
+
+    file.close();  
+    return data;  
+}
+
+
+void saveData(const json& data) {
+    ofstream file(fileJSON);
+    if (file.is_open()) {
+        file << data.dump(4);  
+        file.close();
+    }
+}
 
 void menu() {
     cout << "                                        Selamat Datang" << endl;
@@ -27,30 +62,63 @@ void menu() {
             for (char ch : judul) {
                 cout << ch ;                     
                 cout.flush();                    
-                this_thread::sleep_for(1ms);    
+                // this_thread::sleep_for(1ms);    
             }
         }else if( i == 200){
             cout << endl;
         } else {
             cout << "=";
         }
-        this_thread::sleep_for(1ms);
+        // this_thread::sleep_for(1ms);
     }
   
 }
 
 void pendaftaran() {
-    string nama, nik, umur, jenis_kelamin, ttl;
+    json data = loadData();
+    string id, nama, nik, umur, jenis_kelamin, ttl;
 
+    cout << " Masukan ID : "; getline(cin,id);
     cout << " Masukan Nama : "; getline(cin,nama);
     cout << " Masukan NIK : "; getline(cin,nik);
     cout << " Masukan Umur : "; getline(cin,umur);
-    cout << " Masukan Jenis Kelamin : "; getline(cin,jenis_kelamin);
-    cout << " Masukan Tempat Tanggal Lahir [DD/~MM/YYYY] : "; getline(cin,ttl);
+    cout << " Masukan Jenis Kelamin [L/P] : "; getline(cin,jenis_kelamin);
+    transform(jenis_kelamin.begin(), jenis_kelamin.end(), jenis_kelamin.begin(), ::toupper);
+    cout << " Masukan Tempat Tanggal Lahir [DD/MM/YYYY] : "; getline(cin,ttl);
+
+    data[id] = {{"nama",nama},{"nik",nik},{"umur",umur},{"jenis_kelamin",jenis_kelamin},{"ttl",ttl}};
+
+    saveData(data);
 
 }
 
 void poliGigi(){
+    cout << " Anda di Poli Gigi!";
+
+}
+
+void pemilihanPoli(){
+    int poli = 0;
+    char ch;
+    cout << string(100, '=') << endl;
+    cout << " Pilih Poliklinik\n 1.Poliklinik Gigi\n 2.Poliklinik Umum\n ";
+
+     ch = _getch(); 
+    cout << endl;
+    
+    if (ch >= '1' && ch <= '2') {
+        poli = ch - '0';
+    } else {
+        cout << "Poliklinik Belum Ada!" << endl;
+        return; 
+    }
+
+    switch(poli){
+    case 1:
+        poliGigi();
+    default:
+        break;
+    }   
 
 }
 
@@ -58,11 +126,8 @@ void pembayaran(){
     
 }
 
-
 int main() {
-    menu();
-    pendaftaran();
-    // for(int i = 0;){
-
-    // }
+    // menu();
+    // pendaftaran();
+    pemilihanPoli();
 }
