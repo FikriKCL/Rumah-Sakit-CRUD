@@ -7,7 +7,7 @@
 using namespace std;
 
 int main() {
-cout <<"                                        Selamat Datang" << endl;
+cout <<"                                       SELAMAT DATANG" << endl;
 
 this_thread::sleep_for(2000ms);
 std::string judul = R"(
