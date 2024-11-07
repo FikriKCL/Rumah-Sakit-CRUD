@@ -9,11 +9,11 @@ Step by step :
 
 1. Clone Dulu Projeknya banghhh
  ```bash
-    https://github.com/FikriKCL/Rumah-Sakit-CRUD.git
+git clone https://github.com/FikriKCL/Rumah-Sakit-CRUD.git
 ```
 3. Buat branch local dulu bangh
 ```bash
- git branch nama_branch
+git branch nama_branch
 ```   
 4. kalau mau di up ke remote pakai git fetch lalu git push --set-upstream origin nama_branch
 5. Mantap!
