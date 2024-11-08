@@ -10,7 +10,7 @@ int main() {
 cout <<"                                       SELAMAT DATANG" << endl;
 
 this_thread::sleep_for(2000ms);
-std::string judul = R"(
+string judul = R"(
   _____                           _           _____         _     _  _        _    _  _____  _____ 
  |  __ \                         | |         / ____|       | |   (_)| |      | |  | ||  __ \|_   _|
  | |__) |_   _  _ __ ___    __ _ | |__      | (___    __ _ | | __ _ | |_     | |  | || |__) | | |  
