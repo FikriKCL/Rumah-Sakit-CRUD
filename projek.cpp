@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include <iomanip>  
+#include <iomanip>
 #include <thread>
 #include <vector>
 #include <fstream>
@@ -11,44 +11,48 @@ using json = nlohmann::json;
 using namespace std;
 
 const string fileJSON = "data.json";
+const char* GREEN = "\033[32m";
+const char* RED = "\033[31m";
+const char* RESET = "\033[0m";
 
+// Load data from JSON file
 json loadData() {
-    std::ifstream file(fileJSON);
+    ifstream file(fileJSON);
 
     if (!file) {
-        std::cerr << "Error: Could not open the file." << std::endl;
-        return json{}; 
+        cerr << "Error: Could not open the file." << endl;
+        return json{};
     }
 
-    if (file.peek() == std::ifstream::traits_type::eof()) {
-        return json{};  
+    if (file.peek() == ifstream::traits_type::eof()) {
+        return json{};
     }
 
     json data;
     try {
         file >> data;
     } catch (const json::parse_error& e) {
-        std::cerr << "Parse error: " << e.what() << std::endl;
+        cerr << "Parse error: " << e.what() << endl;
     }
 
-    file.close();  
-    return data;  
+    file.close();
+    return data;
 }
 
-
+// Save data to JSON file
 void saveData(const json& data) {
     ofstream file(fileJSON);
     if (file.is_open()) {
-        file << data.dump(4);  
+        file << data.dump(4);
         file.close();
     }
 }
 
+// Display the welcome menu
 void menu() {
-    cout << "                                        Selamat Datang" << endl;
-    this_thread::sleep_for(2000ms);
+    cout << GREEN << "                                        Selamat Datang" << endl;
 
-    std::string judul = R"(
+    string judul = R"(
   _____                           _        _____         _     _  _     _    _  _____  _____ 
  |  __ \                         | |      / ____|       | |   (_)| |   | |  | ||  __ \|_   _|
  | |__) |_   _  _ __ ___    __ _ | |__   | (___    __ _ | | __ _ | |_  | |  | || |__) | | |  
@@ -57,77 +61,139 @@ void menu() {
  |_|  \_\\__,_||_| |_| |_| \__,_||_| |_| |_____/  \__,_||_|\_\|_| \__|  \____/ |_|    |_____|
  )";
 
-    for(int i = 0; i <= 200; i++){
-        if(i == 100){
+    for (int i = 0; i <= 200; i++) {
+        if (i == 100) {
             for (char ch : judul) {
-                cout << ch ;                     
-                cout.flush();                    
-                // this_thread::sleep_for(1ms);    
+                cout << GREEN << ch;
+                cout.flush();
             }
-        }else if( i == 200){
+        } else if (i == 200) {
             cout << endl;
         } else {
             cout << "=";
         }
-        // this_thread::sleep_for(1ms);
     }
-  
 }
 
+// Error handling String ke Integer
+int cekInputInteger(const string& prompt) {
+    int input;
+    while (true) {
+        cout << GREEN << prompt << RESET;
+        cin >> input;
+
+        if (cin.fail()) {
+            // Clear the error flag on cin
+            cin.clear();
+            // Ignore the rest of the input line to avoid issues
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << RED << " Input harus Diisi dengan Angka dan Tidak Boleh Kosong\n" << RESET;
+        } else {
+            // Consume the newline character left by cin
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            return input;
+        }
+    }
+}
+
+// Error handling Empty Input
+string cekInputString(const string& prompt) {
+    string input;
+    while (true) {
+        cout << GREEN << prompt << RESET;
+        getline(cin, input);
+
+        if (input.empty()) {
+            cout << RED << " Input harus diisi dengan huruf/kalimat\n" << RESET;
+        } else {
+            return input;
+        }
+    }
+}
+
+// Fungsi Pendaftaran
 void pendaftaran() {
     json data = loadData();
-    string id, nama, nik, umur, jenis_kelamin, ttl;
+    string penyakit;
 
-    cout << " Masukan ID : "; getline(cin,id);
-    cout << " Masukan Nama : "; getline(cin,nama);
-    cout << " Masukan NIK : "; getline(cin,nik);
-    cout << " Masukan Umur : "; getline(cin,umur);
-    cout << " Masukan Jenis Kelamin [L/P] : "; getline(cin,jenis_kelamin);
+    int id = cekInputInteger(" Masukan ID Pasien : ");
+    int nik = cekInputInteger(" Masukan NIK Pasien : ");
+    int umur = cekInputInteger(" Masukan Umur Pasien : ");
+    string nama = cekInputString(" Masukan Nama Pasien : ");
+    string jenis_kelamin = cekInputString(" Masukan Jenis Kelamin [L/P] : ");
     transform(jenis_kelamin.begin(), jenis_kelamin.end(), jenis_kelamin.begin(), ::toupper);
-    cout << " Masukan Tempat Tanggal Lahir [DD/MM/YYYY] : "; getline(cin,ttl);
+    string ttl = cekInputString(" Masukan Tempat Tanggal Lahir [DD/MM/YYYY] : ");
 
-    data[id] = {{"nama",nama},{"nik",nik},{"umur",umur},{"jenis_kelamin",jenis_kelamin},{"ttl",ttl}};
+    data[id] = {{"nama", nama}, {"nik", nik}, {"umur", umur}, {"jenis_kelamin", jenis_kelamin}, {"ttl", ttl}, {"penyakit", penyakit}};
 
     saveData(data);
-
 }
 
-void poliGigi(){
+// Fungsi Poliklinik
+void poliGigi() {
     cout << " Anda di Poli Gigi!";
-
+    cout << "Silahkan Konsultasi ke Dokter";
 }
 
-void pemilihanPoli(){
+void poliUmum() {
+    cout << " Anda di Poli Umum!";
+}
+
+void poliOrthopedi() {
+    cout << " Anda di Poli Orthopedi!";
+}
+
+void poliAnak() {
+    cout << " Anda di Poli Anak!";
+}
+
+void poliKejiwaan() {
+    cout << " Anda di Poli Kejiwaan!";
+}
+
+void pemilihanPoli() {
     int poli = 0;
     char ch;
-    cout << string(100, '=') << endl;
-    cout << " Pilih Poliklinik\n 1.Poliklinik Gigi\n 2.Poliklinik Umum\n ";
+    cout << GREEN << string(100, '=') << endl;
+    cout << GREEN <<" Pilih Poliklinik\n 1.Poliklinik Gigi\n 2.Poliklinik Umum\n 3.Poliklinik Kejiwaan\n 4.Poliklinik Anak\n 5.Poliklinik Orthopedi\n";
 
-     ch = _getch(); 
+    ch = _getch();
     cout << endl;
-    
-    if (ch >= '1' && ch <= '2') {
+    if (ch >= '1' && ch <= '5') {
         poli = ch - '0';
     } else {
         cout << "Poliklinik Belum Ada!" << endl;
-        return; 
+        return;
     }
 
-    switch(poli){
-    case 1:
-        poliGigi();
-    default:
-        break;
-    }   
-
+    switch (poli) {
+        case 1:
+            poliGigi();
+            break;
+        case 2:
+            poliUmum();
+            break;
+        case 3:
+            poliKejiwaan();
+            break;
+        case 4:
+            poliAnak();
+            break;
+        case 5:
+            poliOrthopedi();
+            break;
+        default:
+            cout << " Poliklinik Belum Ada!" << endl;
+            break;
+    }
 }
 
-void pembayaran(){
-    
+void pembayaran() {
+
 }
 
 int main() {
-    // menu();
-    // pendaftaran();
+    menu();
+    pendaftaran();
     pemilihanPoli();
 }

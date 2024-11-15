@@ -1,9 +1,11 @@
-{
-    "001": {
+[
+    null,
+    {
         "jenis_kelamin": "L",
-        "nama": "fikri",
-        "nik": "232",
+        "nama": "Fikri",
+        "nik": 326,
+        "penyakit": "",
         "ttl": "22/07/2006",
-        "umur": "18"
+        "umur": 12
     }
-}
+]
