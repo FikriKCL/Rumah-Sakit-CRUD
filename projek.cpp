@@ -10,52 +10,20 @@
 using json = nlohmann::json;
 using namespace std;
 
-const string fileJSON = "data.json";
+int main() {
+cout <<"                                        Selamat Datang" << endl;
 
-json loadData() {
-    std::ifstream file(fileJSON);
-
-    if (!file) {
-        std::cerr << "Error: Could not open the file." << std::endl;
-        return json{}; 
-    }
-
-    if (file.peek() == std::ifstream::traits_type::eof()) {
-        return json{};  
-    }
-
-    json data;
-    try {
-        file >> data;
-    } catch (const json::parse_error& e) {
-        std::cerr << "Parse error: " << e.what() << std::endl;
-    }
-
-    file.close();  
-    return data;  
-}
-
-
-void saveData(const json& data) {
-    ofstream file(fileJSON);
-    if (file.is_open()) {
-        file << data.dump(4);  
-        file.close();
-    }
-}
-
-void menu() {
-    cout << "                                        Selamat Datang" << endl;
-    this_thread::sleep_for(2000ms);
-
-    std::string judul = R"(
+this_thread::sleep_for(2000ms);
+std::string judul = R"(
   _____                           _        _____         _     _  _     _    _  _____  _____ 
  |  __ \                         | |      / ____|       | |   (_)| |   | |  | ||  __ \|_   _|
  | |__) |_   _  _ __ ___    __ _ | |__   | (___    __ _ | | __ _ | |_  | |  | || |__) | | |  
  |  _  /| | | || '_ ` _ \  / _` || '_ \   \___ \  / _` || |/ /| || __| | |  | ||  ___/  | |  
  | | \ \| |_| || | | | | || (_| || | | |  ____) || (_| ||   < | || |_  | |__| || |     _| |_ 
  |_|  \_\\__,_||_| |_| |_| \__,_||_| |_| |_____/  \__,_||_|\_\|_| \__|  \____/ |_|    |_____|
- )";
+                                                                                             
+                                                                                             
+)";
 
     for(int i = 0; i <= 200; i++){
         if(i == 100){
