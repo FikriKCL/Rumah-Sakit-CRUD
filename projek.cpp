@@ -131,23 +131,28 @@ void pendaftaran() {
 
 // Fungsi Poliklinik
 void poliGigi() {
-    cout << " Anda di Poli Gigi!";
-    cout << "Silahkan Konsultasi ke Dokter";
+    cout << GREEN << string(100, '=')<<endl;
+    cout << " Anda di Poli Gigi!\n";
+    cout << " Silahkan Konsultasi ke Dokter";
 }
 
 void poliUmum() {
+    cout << GREEN << string(100, '=')<<endl;
     cout << " Anda di Poli Umum!";
 }
 
 void poliOrthopedi() {
+    cout << GREEN << string(100, '=')<<endl;
     cout << " Anda di Poli Orthopedi!";
 }
 
 void poliAnak() {
+    cout << GREEN << string(100, '=');
     cout << " Anda di Poli Anak!";
 }
 
 void poliKejiwaan() {
+    cout << GREEN << string(100, '=')<<endl;
     cout << " Anda di Poli Kejiwaan!";
 }
 
