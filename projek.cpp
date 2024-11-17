@@ -42,22 +42,43 @@ void menu() {
 void pendaftaran() {
     string nama, nik, umur, jenis_kelamin, ttl;
 
-    cout << " Masukan Nama                               : "; getline(cin,nama);
-    cout << " Masukan NIK                                : "; getline(cin,nik);
-    cout << " Masukan Umur                               : "; getline(cin,umur);
-    cout << " Masukan Jenis Kelamin [L/P]                : "; getline(cin,jenis_kelamin);
-    cout << " Masukan Tempat Tanggal Lahir [DD/~MM/YYYY] : "; getline(cin,ttl);
+    cout << " > Masukan Nama                               : "; getline(cin,nama);
+    cout << " > Masukan NIK                                : "; getline(cin,nik);
+    cout << " > Masukan Umur                               : "; getline(cin,umur);
+    cout << " > Masukan Jenis Kelamin [L/P]                : "; getline(cin,jenis_kelamin);
+    cout << " > Masukan Tempat Tanggal Lahir [DD/~MM/YYYY] : "; getline(cin,ttl);
 
 }
 
-void poliGigi(int PG){
+void  menu_utama() {
+    int ketik;
+        cout<<endl;
+        cout<<"      DAFTAR POLI YANG TERSEDIA "<<endl;
+        cout<<"____________________________________"<<endl;
+        cout<<endl;
+        cout<<" (1) POLI JANTUNG   "<<endl;
+        cout<<" (2) POLI KULIT      "<<endl;
+        cout<<" (3) POLI THT   "<<endl;
+        cout<<" (4) POLI MATA      "<<endl;
+        cout<<" (5) POLI BEDAH     "<<endl;
+        cout<<endl;
+        cout<<"ketik '0' untuk BERHENTI"<<endl;
+        cout<<endl;
+        
+}
+
+
+void polijantung(bool kembali){
     int jadwal, Kunjungan, dokter,ketik, pilih;
         do
         {
-        cout << "==== SELAMAT DATANG DI POLI  GIGI ====" << endl;
-        cout << "1. Lihat Jadwal Perawatan" << endl;
-        cout << "2. Lihat Dokter" << endl;
-        cout << "3. Kembali ke Menu Utama" << endl;
+        cout << "---- SELAMAT DATANG DI POLI JANTUNG ----" << endl;
+        cout<<endl;
+        cout << " (1) Lihat Jadwal Perawatan" << endl;
+        cout << " (2) Lihat Dokter" << endl;
+        cout<<endl;
+        cout << "ketik '0' untuk kembali" << endl;
+        cout << "_____________________________________"<<endl;
         cout << " > Pilih: ";cin >> pilih;
         cout<<endl;
         
@@ -68,12 +89,12 @@ void poliGigi(int PG){
                 do
                 {
                     cout << "JADWAL PERAWATAN" << endl;
-                    cout << "==================" << endl;
-                    cout << " - Senin   : 08.00 - 12.00" << endl;
-                    cout << " - Selasa  : 13.00 - 17.00" << endl;
-                    cout << " - Rabu    : 08.00 - 12.00" << endl;
-                    cout << " - Kamis   : 13.00 - 17.00" << endl;
-                    cout << " - Jumat   : 08.00 - 12.00" << endl;
+                    cout << "------------------" << endl;
+                    cout << " (1) Senin   : 08.00 - 12.00" << endl;
+                    cout << " (2) Selasa  : 13.00 - 17.00" << endl;
+                    cout << " (3) Rabu    : 08.00 - 12.00" << endl;
+                    cout << " (4) Kamis   : 13.00 - 17.00" << endl;
+                    cout << " (5) Jumat   : 08.00 - 12.00" << endl;
                     cout<<endl;
                     cout << "ketik '0' untuk kembali" << endl;
                     cout<<"___________________________"<<endl;
@@ -89,26 +110,28 @@ void poliGigi(int PG){
                 do
                 {
                     cout << "DAFTAR DOKTER" << endl;
-                    cout << "==================" << endl;
-                    cout << " - Senin   : Dr. Handoko Sujatmiko Mrs" << endl;
-                    cout << " - Selasa  : Dr. Rizky Fauzi" << endl;
-                    cout << " - Rabu    : Dr. Rizky Fauzi" << endl;
-                    cout << " - Kamis   : Dr. Handoko Sujatmiko Mrs" << endl;
-                    cout << " - Jumat   : Dr. Rizky Fauzi" << endl;
+                    cout << "__________________" << endl;
+                    cout << " (1) Senin   : Dr. Handoko Sujatmiko Mrs" << endl;
+                    cout << " (2) Selasa  : Dr. Rizky Fauzi" << endl;
+                    cout << " (3) Rabu    : Dr. Rizky Fauzi" << endl;
+                    cout << " (4) Kamis   : Dr. Handoko Sujatmiko Mrs" << endl;
+                    cout << " (5) Jumat   : Dr. Rizky Fauzi" << endl;
                     cout<<endl;
                     cout << "ketik '0' untuk kembali" << endl;
                     cout<<"___________________________"<<endl;
                     cout << " > PILIH : ";cin >> ketik;
                     cout<<endl;
                     
-                } while(ketik !=0);  //ke menu
+                } while(ketik != 0);  //ke menu
                 break;
 
-            case 3:
+            case 0:
+                kembali = true;
                 cout<<" Kembali ke Menu"<<endl;
                 break;
 
         default:
+            cout<<endl;
             cout<<" ========================"<<endl;
             cout<<" |   pilihan tidak ada   |"<<endl;
             cout<<" | SILAKAN ULANG KEMBALI |"<<endl;
@@ -116,7 +139,7 @@ void poliGigi(int PG){
             cout<<endl;
             break;
         }
-        } while(ketik !=3); // ke menu utama
+        } while(!kembali); // ke menu utama
 
 
         /*switch (PG)
@@ -157,28 +180,132 @@ void poliGigi(int PG){
         }*/
 }
 
+void polikulit(bool kembali){
+        int jadwal, Kunjungan, dokter,ketik, pilih;
+        do
+        {
+        cout << "---- SELAMAT DATANG DI POLI KULIT ----" << endl;
+        cout<<endl;
+        cout << " (1) Lihat Jadwal Perawatan" << endl;
+        cout << " (2) Lihat Dokter" << endl;
+        cout<<endl;
+        cout << "ketik '0' untuk kembali" << endl;
+        cout << "_____________________________________"<<endl;
+        cout << " > Pilih: ";cin >> pilih;
+        cout<<endl;
+        
+
+        switch (pilih)
+        {
+            case 1:
+                do
+                {
+                    cout << "JADWAL PERAWATAN" << endl;
+                    cout << "------------------" << endl;
+                    cout << " (1) Senin   : 08.00 - 12.00" << endl;
+                    cout << " (2) Selasa  : 13.00 - 17.00" << endl;
+                    cout << " (3) Rabu    : 08.00 - 12.00" << endl;
+                    cout << " (4) Kamis   : 13.00 - 17.00" << endl;
+                    cout << " (5) Jumat   : 08.00 - 12.00" << endl;
+                    cout<<endl;
+                    cout << "ketik '0' untuk kembali" << endl;
+                    cout<<"___________________________"<<endl;
+                    cout << " > PILIH : ";cin>>ketik;
+                    cout<<endl;
+                    
+                    
+
+                } while(ketik != 0); //ke menu
+                break;
+
+            case 2:
+                do
+                {
+                    cout << "DAFTAR DOKTER" << endl;
+                    cout << "__________________" << endl;
+                    cout << " (1) Senin   : Dr. Handoko Sujatmiko Mrs" << endl;
+                    cout << " (2) Selasa  : Dr. Rizky Fauzi" << endl;
+                    cout << " (3) Rabu    : Dr. Rizky Fauzi" << endl;
+                    cout << " (4) Kamis   : Dr. Handoko Sujatmiko Mrs" << endl;
+                    cout << " (5) Jumat   : Dr. Rizky Fauzi" << endl;
+                    cout<<endl;
+                    cout << "ketik '0' untuk kembali" << endl;
+                    cout<<"___________________________"<<endl;
+                    cout << " > PILIH : ";cin >> ketik;
+                    cout<<endl;
+                    
+                } while(ketik != 0);  //ke menu
+                break;
+
+            case 0:
+                kembali = true;
+                cout<<" Kembali ke Menu"<<endl;
+                break;
+
+        default:
+            cout<<endl;
+            cout<<" ========================"<<endl;
+            cout<<" |   pilihan tidak ada   |"<<endl;
+            cout<<" | SILAKAN ULANG KEMBALI |"<<endl;
+            cout<<" ========================"<<endl;
+            cout<<endl;
+            break;
+        }
+        } while(!kembali); // ke menu utama
+}
+
 void pembayaran(){
     int jadwal, pembayaran;
 }
 
 
+
+
+void kesalahan(){
+        cout<<" ========================"<<endl;
+        cout<<" |   pilihan tidak ada   |"<<endl;
+        cout<<" | SILAKAN ULANG KEMBALI |"<<endl;
+        cout<<" ========================"<<endl;
+        cout<<endl;
+}
+
 int main() {
-    int PG,ketik;
+    int poljantung,polkulit,ketik,kembali;
     menu();
     pendaftaran();
+    
+        do
+        {
+            menu_utama();
+            cout<<"*PERHATIKAN : ketik angka didepan nama poli untuk memilih"<<endl;
+            cout<<"========================================================="<<endl;
+            cout<<"SILAKAN PILIH POLI YANG DIINGINKAN = ";cin>>ketik;
+            cout<<endl;
 
-        cout<<endl;
-        cout<<"      DAFTAR POLI YANG TERSEDIA "<<endl;
-        cout<<"===================================="<<endl;
-        cout<<" - POLI GIGI    = 1 "<<endl;
-        cout<<" - POLI ANAK    = 2  "<<endl;
-        cout<<" - POLI JANTUNG = 3 "<<endl;
-        cout<<endl;
+            kembali =false;
+            
+        switch (ketik)
+        {
+            case 1:
+            polijantung(kembali);
+            break;
 
-        cout<<"SILAKAN PILIH POLI YANG DIINGINKAN = \n";cin>>PG;
-        
-        poliGigi(PG);
-      
-       
-  
+            case 2:
+            polikulit(kembali);
+            break;
+
+            case 0:
+                cout<<"      PROGRAM BERHENTI"<<endl;
+                cout<<"============================"<<endl;
+                cout<<"TERIMAKASIH TELAH BERKUNJUNG"<<endl;
+                break;
+           
+
+        default:
+            kesalahan();
+            break;
+        }
+        } 
+        while(ketik !=0);
 }
+
