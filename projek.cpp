@@ -11,6 +11,7 @@ using json = nlohmann::json;
 using namespace std;
 
 const string fileJSON = "data.json";
+json pasien;
 const char* GREEN = "\033[32m";
 const char* RED = "\033[31m";
 const char* RESET = "\033[0m";
@@ -19,16 +20,19 @@ const char* RESET = "\033[0m";
 json loadData() {
     ifstream file(fileJSON);
 
+    //Apabila Bukan File Maka Akan Muncul Pesan lalu mengembalikan JSON
     if (!file) {
         cerr << "Error: Could not open the file." << endl;
         return json{};
     }
-
+    
+    //Apabila Bukan File Maka Akan Muncul Pesan lalu mengembalikan JSON
     if (file.peek() == ifstream::traits_type::eof()) {
         return json{};
     }
 
     json data;
+    //memasukan data dari file ke dalam "data" apabila terdapat error maka akan muncul pesan
     try {
         file >> data;
     } catch (const json::parse_error& e) {
@@ -36,16 +40,27 @@ json loadData() {
     }
 
     file.close();
+
+    //mengembalikan data dari file
     return data;
 }
 
-// Save data to JSON file
+// Save data ke JSON
 void saveData(const json& data) {
+    //Membuka file "fileJSON"
     ofstream file(fileJSON);
+
+    //apabila file terbuka maka data dimasukan ke file
     if (file.is_open()) {
         file << data.dump(4);
+        //menutup file
         file.close();
     }
+}
+
+// Mencetak Pembatas
+void pembatas(){
+    cout << GREEN << string(100, '=') << RESET <<endl;
 }
 
 // Display the welcome menu
@@ -60,36 +75,30 @@ void menu() {
  | | \ \| |_| || | | | | || (_| || | | |  ____) || (_| ||   < | || |_  | |__| || |     _| |_ 
  |_|  \_\\__,_||_| |_| |_| \__,_||_| |_| |_____/  \__,_||_|\_\|_| \__|  \____/ |_|    |_____|
  )";
-
-    for (int i = 0; i <= 200; i++) {
-        if (i == 100) {
-            for (char ch : judul) {
-                cout << GREEN << ch;
-                cout.flush();
-            }
-        } else if (i == 200) {
-            cout << endl;
-        } else {
-            cout << "=";
-        }
-    }
+pembatas();
+cout << judul << endl;
+pembatas();
 }
 
 // Error handling String ke Integer
+// Proseduer Cek Input Integer digunakan untuk mengecek apakah input yang dimasukan oleh user adalah angka
+// Memilki parameter const string& prompt digunakan untuk menggantikan variable prompt di dalam fungsi ex: cekInputInteger("Masukan ID Pasien : ");
+// "Masukan ID Pasien" akan menggantikan variable prompt
 int cekInputInteger(const string& prompt) {
     int input;
     while (true) {
         cout << GREEN << prompt << RESET;
         cin >> input;
 
+// Apabila input bukan angka maka akan muncul pesan setelah itu diclear
         if (cin.fail()) {
-            // Clear the error flag on cin
             cin.clear();
-            // Ignore the rest of the input line to avoid issues
+// Lalu diignore semua input selanjutnya sampai newline
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << RED << " Input harus Diisi dengan Angka dan Tidak Boleh Kosong\n" << RESET;
+// Memunculkan pesan             
+            cout << RED << "Input harus Diisi dengan Angka dan Tidak Boleh Kosong\n" << RESET;
         } else {
-            // Consume the newline character left by cin
+// Apabila input adalah angka maka akan mengembalikan nilai input            
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             return input;
         }
@@ -97,70 +106,304 @@ int cekInputInteger(const string& prompt) {
 }
 
 // Error handling Empty Input
+// Prosedur Cek Input String digunakan untuk mengecek apakah input yang dimasukan oleh user tidak kosong
+// Memilki parameter const string& prompt digunakan untuk menggantikan variable prompt di dalam fungsi ex: cekInputString("Masukan ID Pasien : ");
+// "Masukan ID Pasien" akan menggantikan variable prompt
 string cekInputString(const string& prompt) {
     string input;
     while (true) {
         cout << GREEN << prompt << RESET;
         getline(cin, input);
-
+//Mengecek apakah input kosong
         if (input.empty()) {
-            cout << RED << " Input harus diisi dengan huruf/kalimat\n" << RESET;
+//Apabila kosong akan mencetak pesan            
+            cout << RED << "Input harus diisi dengan huruf/kalimat\n" << RESET;
         } else {
+//Apabila tidak kosong akan mengembalikan nilai input            
             return input;
         }
     }
 }
 
+// Error Handling Jenis Kelamin apabila bukan diisi oleh L/P
+// Prosedur Cek Input String digunakan untuk mengecek apakah input yang dimasukan oleh user tidak kosong
+// Memilki parameter const string& prompt digunakan untuk menggantikan variable prompt di dalam fungsi ex: cekInputKelamin("Masukkan Jenis Kelamin [L/P] : ");
+// "Masukan Jenis Kelamin[l/P]" akan menggantikan variable prompt
+string cekInputKelamin(const string& prompt) {
+    string input;
+    while (true) {                
+        cout << GREEN << prompt << RESET;
+        getline(cin, input);
+// membuat input menjadi kapital       
+        transform(input.begin(), input.end(), input.begin(), ::toupper);
+// Mengecek apakah input itu L/P apabila bukan akan mencetak pesan
+        if (input != "L" && input != "P") {
+            cout << RED << "Input Kelamin Hanya Dapat Diisi Dengan L/P" << RESET << endl;
+        } else {
+// Mengembalikan Input            
+            return input;
+        }
+    }
+}
+
+// Error Mengecek BPJS apakah diisi dengan Y (True) dan N (False)
+// Prosedur CekBPJS digunakan untuk mengecek BPJS true atau false
+// Memilki parameter const string& prompt digunakan untuk menggantikan variable prompt di dalam fungsi ex: cekBPJS("Apakah anda pengguna BPJS : ");
+// "Apakah anda pengguna BPJS : " akan menggantikan variable prompt
+bool cekBPJS(const string& prompt) {
+    string input;
+    while (true) {
+        cout << GREEN << prompt << RESET;
+        getline(cin, input);
+        transform(input.begin(), input.end(), input.begin(), ::toupper);
+// Apabila Input bukan Y/N maka akan mencetak pesan
+        if (input != "Y" && input != "N") {            
+            cout << RED << "Input BPJS Hanya Dapat Diisi Dengan Y/N" << RESET << endl;
+        } else {
+// Selain itu mengembalikan input "Y" atau true            
+            return input == "Y";
+        }
+    }
+}
+
+//Proseuder BPJS pada tahap penentuan biaya
+// Memilki parameter bool bpjs, string tindakan, int biaya
+bool bpjs(bool bpjs, string tindakan, int biaya) {
+//Apabila user pengguna BPJS maka biaya akan menjadi 0 lalu mencetak pesan dan mengembalikan true    
+    if(bpjs) {
+        int biaya = 0;
+        cout << GREEN << "Biaya tindakan dan konsultasi ditanggung BPJS" << RESET << endl;
+        cout << GREEN << "Biaya menjadi Rp- " << biaya << RESET << endl;
+        return true;    
+    } else {
+//Apabila user tidak terdaftar bpjs maka biaya akan tetap sama lalu mencetak pesan dan mengembalikan false         
+        cout << RED << "BPJS Tidak Terdaftar. Biaya akan dikenakan secara mandiri." << RESET << endl;
+        cout << GREEN << "Biaya " << tindakan <<  "  menjadi Rp- " << biaya  << "K" << RESET << endl;
+        return false;
+    }
+}
+
 // Fungsi Pendaftaran
 void pendaftaran() {
+//Memuat data dari File melalui prosedur loadData()
     json data = loadData();
-    string penyakit;
 
-    int id = cekInputInteger(" Masukan ID Pasien : ");
-    int nik = cekInputInteger(" Masukan NIK Pasien : ");
-    int umur = cekInputInteger(" Masukan Umur Pasien : ");
-    string nama = cekInputString(" Masukan Nama Pasien : ");
-    string jenis_kelamin = cekInputString(" Masukan Jenis Kelamin [L/P] : ");
-    transform(jenis_kelamin.begin(), jenis_kelamin.end(), jenis_kelamin.begin(), ::toupper);
-    string ttl = cekInputString(" Masukan Tempat Tanggal Lahir [DD/MM/YYYY] : ");
+    int id = cekInputInteger("Masukan ID Pasien : ");
+    int long nik = cekInputInteger("Masukan NIK Pasien : ");
+    int umur = cekInputInteger("Masukan Umur Pasien : ");
+    string nama = cekInputString("Masukan Nama Pasien : ");
+    string jenis_kelamin = cekInputKelamin("Masukan Jenis Kelamin [L/P] : ");
+    bool bpjs = cekBPJS("Apakah Anda Pengguna BPJS? [Y/N] : ");
+    string ttl = cekInputString("Masukan Tempat Tanggal Lahir [DD/MM/YYYY] : ");
 
-    data[id] = {{"nama", nama}, {"nik", nik}, {"umur", umur}, {"jenis_kelamin", jenis_kelamin}, {"ttl", ttl}, {"penyakit", penyakit}};
+    //Mendeklarasikan data ke dalam variabel yang akan di simpan di file JSON yang telah dibuat
+    pasien = {{"id", id}, {"nama", nama}, {"nik", nik}, {"umur", umur}, {"jenis_kelamin", jenis_kelamin}, {"ttl", ttl}, {"BPJS", bpjs}};
+    data["Pasien"] = pasien;
+
+    //Save data yang telat diinput kedalam file
+    saveData(data);
+    pembatas();
+}
+
+//Sebuah prosedur yang berisi switch case untuk memilih tindakan berdasarkan id_tindakan, akan dipanggil di fungsi Poliklinik masing-masing
+void pilihTindakan(int id_tindakan, string keluhan){
+    int biaya;
+    string tindakan;
+    bool bpjsStatus = pasien["BPJS"];
+
+    if(id_tindakan == 1){
+        cout << GREEN <<"Tindakan untuk Poli Gigi\n" << RESET;
+    //Mengecek Input pilih_tindakan apakah itu angka atau tidak 
+        int pilih_tindakan = cekInputInteger("Silahkan Pilih Tindakan\n1. Scaling Karang Gigi\n2. Pembersihan Gigi\n3. Penggantian Gigi\n4. Tambal Gigi\n5. Behel Gigi\n");
+        switch(pilih_tindakan){
+            case 1: 
+            biaya = 500;
+            tindakan = "Scaling Karang Gigi";
+            bpjs(bpjsStatus, tindakan, biaya);
+            break;
+            case 2:
+            biaya = 250;
+            tindakan = "Pembersihan Karang Gigi";
+            bpjs(bpjsStatus, tindakan, biaya);
+            break;
+            case 3:
+            biaya = 150;
+            tindakan = "Penggantian Gigi";
+            bpjs(bpjsStatus, tindakan, biaya);
+            break;
+            case 4:
+            biaya = 200;
+            tindakan = "Tambal Gigi \n";
+            bpjs(bpjsStatus, tindakan, biaya);
+            break;
+            case 5:
+            biaya = 200;
+            tindakan = "Tambal Gigi";
+            bpjs(bpjsStatus, tindakan, biaya);
+            break;
+            default:
+            cout << "Tindakan belum ada!";    
+        }
+    }else if(id_tindakan == 2){
+        cout << GREEN <<  "Tindakan untuk Poli Umum\n" << RESET;
+        int tindakan = cekInputInteger("Silahkan Pilih Tindakan\n 1. Pemeriksaan Umum\n 2. Pemeriksaan Kesehatan");
+            switch(tindakan){
+            case 1: 
+            cout << "1.Pemeriksaan Umum\n";
+            break;
+            case 2:
+            cout << "2.Pemeriksaan Kesehatan\n";
+            break;
+            default:
+            cout << "3.Tindakan belum ada!\n"; 
+            }
+    }else if(id_tindakan == 3){
+        int biaya;
+        cout << GREEN << "Tindakan untuk Poli Orthopedi\n" << RESET;
+        int tindakan = cekInputInteger("Silahkan Pilih Tindakan\n 1. Operasi Lutut\n 2. Operasi Paha\n 3. Operasi Kaki\n 4. Operasi Punggung\n 5. Fisioterapi");
+        switch(tindakan){
+            case 1: 
+            cout << "1.Operasi Lutut\n";
+            break;
+            case 2:
+            cout << "2.Operasi Paha\n";
+            break;
+            case 3:
+            cout << "3.Operasi Kaki\n";
+            break;
+            case 4:
+            cout << "4.Operasi Punggung\n";
+            break;
+            case 5:
+            cout << "5.Fisioterapi\n";
+            break;
+            default:
+            cout << "Tindakan belum ada!";    
+        };
+    }else if(id_tindakan == 4){
+        cout << GREEN << "Tindakan untuk Poli Anak\n" << RESET;
+        int tindakan = cekInputInteger("Silahkan Pilih Tindakan\n");
+        switch(tindakan){
+            case 1: 
+            cout << "1.Pemeriksaan Kesehatan\n";
+            break;
+            case 2:
+            cout << "2.Konsultasi Gizi & Tumbuh Kembang \n";
+            break;
+            default:
+            cout << "Tindakan belum ada!";    
+        };
+    }else if(id_tindakan == 5){
+        cout << GREEN << "Tindakan untuk Poli Kejiwaan\n" << RESET;
+        int tindakan = cekInputInteger("Silahkan Pilih Tindakan\n");
+        switch(tindakan){
+            case 1:
+            cout << "1.Sesi Terapi Kejiwaan\n";
+            break;
+            default:
+            cout << "Tindakan belum ada!";
+        }
+    }
+
+}
+
+void pembayaran(string obat[5][2]) {
+    string arrayObat[5][2];
+    json data = loadData();
+    int pembayaran;
+    int id = pasien["id"];
+
+    for(int i = 0; i < 5; i++){
+        cout << "\n" << arrayObat[i][0] << " Rp." << arrayObat[i][1] << endl;
+    }
+
+    cout << "Pembayaran\n1.Cash\n2.Kredit\n";
+    pembayaran = cekInputInteger("Silahkan Pilih Pembayaran\n");
+
+    data["Pasien"] = {{"tipe_bayar", pembayaran}};
 
     saveData(data);
 }
 
 // Fungsi Poliklinik
 void poliGigi() {
-    cout << GREEN << string(100, '=')<<endl;
-    cout << " Anda di Poli Gigi!\n";
-    cout << " Silahkan Konsultasi ke Dokter";
+     string obatPoliGigi[5][2] = {
+        {"Penghilang Nyeri Gigi", "5000"},
+        {"Obat Gusi Bengkak", "10000"},
+        {"Antibiotik Gigi", "8000"},
+        {"Obat Kumur Antiseptik", "15000"},
+        {"Obat Luka Dalam Mulut", "20000"}
+    };
+
+    string keluhan;
+    int tindakan;
+    cout << GREEN << "Anda di Poli Gigi!" << RESET << endl;
+    cout << GREEN << "Silahkan Konsultasi ke Dokter!\nJelaskan Keluhan Anda!\n" << RESET;
+    getline(cin, keluhan);
+    pilihTindakan(1, keluhan);
+    // pembayaran(obatPoliGigi);
+    
 }
 
 void poliUmum() {
-    cout << GREEN << string(100, '=')<<endl;
-    cout << " Anda di Poli Umum!";
+    string obatPoliUmum[5][2] = {
+        {"Penurun Demam", "5000"},
+        {"Obat Sakit Kepala", "7000"},
+        {"Vitamin untuk Daya Tahan Tubuh", "10000"},
+        {"Obat Maag", "8000"},
+        {"Penghilang Nyeri Otot", "12000"}
+    };
+   
+    string keluhan;
+    cout << GREEN << "Anda di Poli Umum!" << RESET << endl;
+    pilihTindakan(2,keluhan);
+
 }
 
 void poliOrthopedi() {
-    cout << GREEN << string(100, '=')<<endl;
-    cout << " Anda di Poli Orthopedi!";
+    string obatPoliOrthopedi[5][2] = {
+        {"Obat Nyeri Sendi", "15000"},
+        {"Obat Penguat Tulang", "20000"},
+        {"Obat Anti Radang Sendi", "10000"},
+        {"Vitamin Tulang", "25000"},
+        {"Krim Penghilang Pegal", "12000"}
+    };
+    string keluhan;
+    cout << GREEN << "Anda di Poli Orthopedi!" << RESET;
+    pilihTindakan(3,keluhan);
+
 }
 
 void poliAnak() {
-    cout << GREEN << string(100, '=');
-    cout << " Anda di Poli Anak!";
+    string obatPoliAnak[5][2] = {
+        {"Obat Penurun Demam Anak", "5000"},
+        {"Vitamin Anak", "7000"},
+        {"Obat Batuk Anak", "8000"},
+        {"Obat Pilek Anak", "6000"},
+        {"Obat Nyeri Tumbuh Gigi Anak", "10000"}
+    };
+    string keluhan;
+    cout << GREEN << "Anda di Poli Anak!" << RESET;
+    pilihTindakan(4,keluhan);
 }
 
 void poliKejiwaan() {
-    cout << GREEN << string(100, '=')<<endl;
-    cout << " Anda di Poli Kejiwaan!";
+    string obatPoliKejiwaan[5][2] = {
+        {"Obat Tidur", "15000"},
+        {"Obat Penenang", "20000"},
+        {"Obat Anti Cemas", "10000"},
+        {"Vitamin Otak", "12000"},
+        {"Obat Stres", "25000"}
+    };
+    string keluhan;
+    cout << GREEN << "Anda di Poli Kejiwaan!" << RESET;
+    pilihTindakan(5,keluhan);
 }
 
 void pemilihanPoli() {
     int poli = 0;
     char ch;
-    cout << GREEN << string(100, '=') << endl;
-    cout << GREEN <<" Pilih Poliklinik\n 1.Poliklinik Gigi\n 2.Poliklinik Umum\n 3.Poliklinik Kejiwaan\n 4.Poliklinik Anak\n 5.Poliklinik Orthopedi\n";
+    cout << GREEN <<"Pilih Poliklinik\n1.Poliklinik Gigi\n2.Poliklinik Umum\n3.Poliklinik Kejiwaan\n4.Poliklinik Anak\n5.Poliklinik Orthopedi\n";
 
     ch = _getch();
     cout << endl;
@@ -170,6 +413,7 @@ void pemilihanPoli() {
         cout << "Poliklinik Belum Ada!" << endl;
         return;
     }
+    pembatas();
 
     switch (poli) {
         case 1:
@@ -193,12 +437,10 @@ void pemilihanPoli() {
     }
 }
 
-void pembayaran() {
-
-}
 
 int main() {
     menu();
     pendaftaran();
     pemilihanPoli();
+    // pembayaran();
 }

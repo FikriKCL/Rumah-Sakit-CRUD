@@ -1,11 +1,11 @@
-[
-    null,
-    {
-        "jenis_kelamin": "L",
-        "nama": "fikri",
-        "nik": 2,
-        "penyakit": "",
+{
+    "Pasien": {
+        "BPJS": false,
+        "id": 4,
+        "jenis_kelamin": "P",
+        "nama": "Fikri",
+        "nik": 325,
         "ttl": "22/07/2006",
-        "umur": 12
+        "umur": 10
     }
-]
+}
