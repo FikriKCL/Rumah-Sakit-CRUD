@@ -1,9 +1,16 @@
 {
     "001": {
         "jenis_kelamin": "L",
-        "nama": "fikri",
-        "nik": "232",
+        "nama": "Fikri",
+        "nik": "2323",
         "ttl": "22/07/2006",
-        "umur": "18"
+        "umur": "10"
+    },
+    "02": {
+        "jenis_kelamin": "L",
+        "nama": "JIJI",
+        "nik": "3232",
+        "ttl": "22/07/2006",
+        "umur": "200"
     }
 }

@@ -10,7 +10,9 @@
 using json = nlohmann::json;
 using namespace std;
 
-int main() {
+const string fileJSON = "data.json";
+
+void menu() {
 cout <<"                                        Selamat Datang" << endl;
 
 this_thread::sleep_for(2000ms);
@@ -41,6 +43,52 @@ std::string judul = R"(
     }
   
 }
+
+json loadData() {
+    std::ifstream file(fileJSON);
+
+    // Check if the file can be opened
+    if (!file.is_open()) {
+        cerr << "Error: Could not open the file." << endl;
+        return json{}; // Return an empty JSON object
+    }
+    
+    // Check if the file is empty
+    if (file.peek() == std::ifstream::traits_type::eof()) {
+        cout << "File is empty, initializing with empty JSON." << endl;
+        return json{};
+    }
+
+    json data;
+    try {
+        file >> data; // Parse the JSON data
+    } catch (const json::parse_error& e) {
+        cerr << "Parse error: " << e.what() << endl;
+        return json{}; // Return an empty JSON object on parse failure
+    }
+
+    file.close(); // Close the file
+    return data;
+}
+
+void saveData(const json& data) {
+    std::ofstream file(fileJSON);
+
+    // Check if the file can be opened
+    if (!file.is_open()) {
+        cerr << "Error: Could not open the file for saving." << endl;
+        return;
+    }
+
+    try {
+        file << data.dump(4); // Pretty-print JSON with 4 spaces indentation
+    } catch (const std::exception& e) {
+        cerr << "Error while writing to the file: " << e.what() << endl;
+    }
+
+    file.close(); // Close the file
+}
+
 
 void pendaftaran() {
     json data = loadData();
@@ -95,7 +143,7 @@ void pembayaran(){
 }
 
 int main() {
-    // menu();
-    // pendaftaran();
+    menu();
+    pendaftaran();
     pemilihanPoli();
 }
