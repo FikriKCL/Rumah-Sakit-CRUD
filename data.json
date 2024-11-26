@@ -1,11 +1,11 @@
 {
     "Pasien": {
-        "BPJS": false,
-        "id": 4,
-        "jenis_kelamin": "P",
-        "nama": "Fikri",
-        "nik": 325,
+        "BPJS": true,
+        "id": 1,
+        "jenis_kelamin": "L",
+        "nama": "Jiiji",
+        "nik": 2323,
         "ttl": "22/07/2006",
-        "umur": 10
+        "umur": 20
     }
 }
