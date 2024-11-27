@@ -11,7 +11,7 @@ using json = nlohmann::json;
 using namespace std;
 
 const string fileJSON = "data.json";
-json pasien;
+json pasien = json::array();
 const char* GREEN = "\033[32m";
 const char* RED = "\033[31m";
 const char* RESET = "\033[0m";
@@ -219,9 +219,11 @@ void pendaftaran() {
     string ttl = cekInputString("Masukan Tempat Tanggal Lahir [DD/MM/YYYY] : ");
 
     //Mendeklarasikan data ke dalam variabel yang akan di simpan di file JSON yang telah dibuat
-    data["Pasien"] = {{"id", id}, {"nama", nama}, {"nik", nik}, {"umur", umur}, {"jenis_kelamin", jenis_kelamin}, {"ttl", ttl}, {"BPJS", bpjs}};
+     pasien = {{"id", id}, {"nama", nama}, {"nik", nik}, {"umur", umur}, {"jenis_kelamin", jenis_kelamin}, {"ttl", ttl}, {"BPJS", bpjs}};
 
-    //Save data yang telat diinput kedalam file
+     data["Pasien"].push_back(pasien);    
+   
+    //Save data yang telah diinput kedalam file
     saveData(data);
     pembatas();
 }

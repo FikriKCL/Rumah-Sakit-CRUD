@@ -1,11 +1,22 @@
 {
-    "Pasien": {
-        "BPJS": true,
-        "id": 1,
-        "jenis_kelamin": "L",
-        "nama": "Jiiji",
-        "nik": 2323,
-        "ttl": "22/07/2006",
-        "umur": 20
-    }
+    "Pasien": [
+        {
+            "BPJS": true,
+            "id": 1,
+            "jenis_kelamin": "L",
+            "nama": "Fikri",
+            "nik": 3223,
+            "ttl": "22/07/2006",
+            "umur": 20
+        },
+        {
+            "BPJS": true,
+            "id": 1,
+            "jenis_kelamin": "L",
+            "nama": "Jojo",
+            "nik": 327,
+            "ttl": "22/07/2006",
+            "umur": 69
+        }
+    ]
 }
