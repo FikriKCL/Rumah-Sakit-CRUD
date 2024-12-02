@@ -129,7 +129,7 @@ void polijantung(bool kembali){
                     }
                     else
                     {
-                        cout<<"PILIHAN TIDAK VALID\n";
+                        cout<<"PILIHAN TIDAK VALID !\n";
                     }     
                 } while(ketik != 0); //ke menu
                 break;
