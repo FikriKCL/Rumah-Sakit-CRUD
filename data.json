@@ -1,22 +1,341 @@
 {
     "Pasien": [
         {
-            "BPJS": true,
+            "BPJS": false,
             "id": 1,
             "jenis_kelamin": "L",
-            "nama": "Fikri",
-            "nik": 3223,
-            "ttl": "22/07/2006",
+            "nama": "Joseph",
+            "nik": 31131,
+            "obat": [
+                {
+                    "hargaObat": 8000,
+                    "namaObat": "Antibiotik Gigi"
+                },
+                {
+                    "hargaObat": 20000,
+                    "namaObat": "Obat Luka Dalam Mulut"
+                },
+                {
+                    "hargaObat": 5000,
+                    "namaObat": "Penghilang Nyeri Gigi"
+                }
+            ],
+            "tindakan": [
+                {
+                    "hargaTindakan": 500000,
+                    "namaTindakan": "Scaling Karang Gigi"
+                }
+            ],
+            "ttl": "a",
             "umur": 20
         },
         {
-            "BPJS": true,
-            "id": 1,
+            "BPJS": false,
+            "id": 2,
             "jenis_kelamin": "L",
-            "nama": "Jojo",
-            "nik": 327,
-            "ttl": "22/07/2006",
-            "umur": 69
+            "nama": "KOKO",
+            "nik": 1231231,
+            "obat": [
+                {
+                    "hargaObat": 20000,
+                    "namaObat": "Obat Luka Dalam Mulut"
+                },
+                {
+                    "hargaObat": 15000,
+                    "namaObat": "Obat Kumur Antiseptik"
+                },
+                {
+                    "hargaObat": 8000,
+                    "namaObat": "Antibiotik Gigi"
+                },
+                {
+                    "hargaObat": 5000,
+                    "namaObat": "Penghilang Nyeri Gigi"
+                },
+                {
+                    "hargaObat": 8000,
+                    "namaObat": "Antibiotik Gigi"
+                }
+            ],
+            "tindakan": [
+                {
+                    "hargaTindakan": 500000,
+                    "namaTindakan": "Scaling Karang Gigi"
+                }
+            ],
+            "ttl": "a",
+            "umur": 20
+        },
+        {
+            "BPJS": false,
+            "id": 3,
+            "jenis_kelamin": "L",
+            "nama": "Josph",
+            "nik": 1321131,
+            "obat": [
+                {
+                    "hargaObat": 12000,
+                    "namaObat": "Penghilang Nyeri Otot"
+                },
+                {
+                    "hargaObat": 8000,
+                    "namaObat": "Obat Maag"
+                },
+                {
+                    "hargaObat": 7000,
+                    "namaObat": "Vitamin untuk Daya Tahan Tubuh"
+                },
+                {
+                    "hargaObat": 5000,
+                    "namaObat": "Penurun Demam"
+                },
+                {
+                    "hargaObat": 7000,
+                    "namaObat": "Vitamin untuk Daya Tahan Tubuh"
+                }
+            ],
+            "tindakan": [
+                {
+                    "hargaTindakan": 80000,
+                    "namaTindakan": "Pemeriksaan Umum"
+                }
+            ],
+            "tipe_bayar": 2,
+            "ttl": "a",
+            "umur": 20
+        },
+        {
+            "BPJS": false,
+            "id": 4,
+            "jenis_kelamin": "L",
+            "nama": "Josehpl",
+            "nik": 3123213,
+            "obat": [
+                {
+                    "hargaObat": 12000,
+                    "namaObat": "Penghilang Nyeri Otot"
+                },
+                {
+                    "hargaObat": 8000,
+                    "namaObat": "Obat Maag"
+                },
+                {
+                    "hargaObat": 7000,
+                    "namaObat": "Vitamin untuk Daya Tahan Tubuh"
+                },
+                {
+                    "hargaObat": 5000,
+                    "namaObat": "Penurun Demam"
+                },
+                {
+                    "hargaObat": 20000,
+                    "namaObat": "Obat Luka Dalam Mulut"
+                },
+                {
+                    "hargaObat": 15000,
+                    "namaObat": "Obat Kumur Antiseptik"
+                },
+                {
+                    "hargaObat": 8000,
+                    "namaObat": "Antibiotik Gigi"
+                },
+                {
+                    "hargaObat": 5000,
+                    "namaObat": "Penghilang Nyeri Gigi"
+                }
+            ],
+            "tindakan": [
+                {
+                    "hargaTindakan": 80000,
+                    "namaTindakan": "Pemeriksaan Umum"
+                },
+                {
+                    "hargaTindakan": 500000,
+                    "namaTindakan": "Scaling Karang Gigi"
+                }
+            ],
+            "tipe_bayar": 2,
+            "ttl": "a",
+            "umur": 20
+        },
+        {
+            "BPJS": false,
+            "id": 5,
+            "jenis_kelamin": "L",
+            "nama": "Joseph",
+            "nik": 312312,
+            "obat": [
+                {
+                    "hargaObat": 20000,
+                    "namaObat": "Obat Luka Dalam Mulut"
+                },
+                {
+                    "hargaObat": 15000,
+                    "namaObat": "Obat Kumur Antiseptik"
+                },
+                {
+                    "hargaObat": 8000,
+                    "namaObat": "Antibiotik Gigi"
+                },
+                {
+                    "hargaObat": 5000,
+                    "namaObat": "Penghilang Nyeri Gigi"
+                },
+                {
+                    "hargaObat": 8000,
+                    "namaObat": "Antibiotik Gigi"
+                }
+            ],
+            "tindakan": [
+                {
+                    "hargaTindakan": 500000,
+                    "namaTindakan": "Scaling Karang Gigi"
+                }
+            ],
+            "ttl": "a",
+            "umur": 20
+        },
+        {
+            "BPJS": false,
+            "id": 6,
+            "jenis_kelamin": "L",
+            "nama": "JOsek",
+            "nik": 3131,
+            "obat": [
+                {
+                    "hargaObat": 20000,
+                    "namaObat": "Obat Luka Dalam Mulut"
+                },
+                {
+                    "hargaObat": 15000,
+                    "namaObat": "Obat Kumur Antiseptik"
+                },
+                {
+                    "hargaObat": 8000,
+                    "namaObat": "Antibiotik Gigi"
+                },
+                {
+                    "hargaObat": 5000,
+                    "namaObat": "Penghilang Nyeri Gigi"
+                },
+                {
+                    "hargaObat": 8000,
+                    "namaObat": "Antibiotik Gigi"
+                }
+            ],
+            "tindakan": [
+                {
+                    "hargaTindakan": 250000,
+                    "namaTindakan": "Pembersihan Gigi"
+                }
+            ],
+            "ttl": "a",
+            "umur": 20
+        },
+        {
+            "BPJS": false,
+            "id": 7,
+            "jenis_kelamin": "L",
+            "nama": "josko",
+            "nik": 1313,
+            "obat": [
+                {
+                    "hargaObat": 15000,
+                    "namaObat": "Obat Kumur Antiseptik"
+                },
+                {
+                    "hargaObat": 20000,
+                    "namaObat": "Obat Luka Dalam Mulut"
+                },
+                {
+                    "hargaObat": 15000,
+                    "namaObat": "Obat Kumur Antiseptik"
+                }
+            ],
+            "tindakan": [
+                {
+                    "hargaTindakan": 250000,
+                    "namaTindakan": "Pembersihan Gigi"
+                }
+            ],
+            "ttl": "a",
+            "umur": 20
+        },
+        {
+            "BPJS": false,
+            "id": 8,
+            "jenis_kelamin": "L",
+            "nama": "Joseph",
+            "nik": 3121,
+            "obat": [
+                {
+                    "hargaObat": 20000,
+                    "namaObat": "Obat Luka Dalam Mulut"
+                },
+                {
+                    "hargaObat": 15000,
+                    "namaObat": "Obat Kumur Antiseptik"
+                },
+                {
+                    "hargaObat": 8000,
+                    "namaObat": "Antibiotik Gigi"
+                },
+                {
+                    "hargaObat": 5000,
+                    "namaObat": "Penghilang Nyeri Gigi"
+                },
+                {
+                    "hargaObat": 8000,
+                    "namaObat": "Antibiotik Gigi"
+                }
+            ],
+            "tindakan": [
+                {
+                    "hargaTindakan": 500000,
+                    "namaTindakan": "Scaling Karang Gigi"
+                }
+            ],
+            "tipe_bayar": 1,
+            "ttl": "a",
+            "umur": 20
+        },
+        {
+            "BPJS": false,
+            "id": 9,
+            "jenis_kelamin": "L",
+            "nama": "Joseph",
+            "nik": 21321,
+            "obat": [
+                {
+                    "hargaObat": 20000,
+                    "namaObat": "Obat Luka Dalam Mulut"
+                },
+                {
+                    "hargaObat": 15000,
+                    "namaObat": "Obat Kumur Antiseptik"
+                },
+                {
+                    "hargaObat": 8000,
+                    "namaObat": "Antibiotik Gigi"
+                },
+                {
+                    "hargaObat": 5000,
+                    "namaObat": "Penghilang Nyeri Gigi"
+                },
+                {
+                    "hargaObat": 8000,
+                    "namaObat": "Antibiotik Gigi"
+                }
+            ],
+            "tindakan": [
+                {
+                    "hargaTindakan": 500000,
+                    "namaTindakan": "Scaling Karang Gigi"
+                }
+            ],
+            "tipe_bayar": 2,
+            "ttl": "a",
+            "umur": 20
         }
     ]
 }
