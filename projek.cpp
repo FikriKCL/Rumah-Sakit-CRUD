@@ -50,6 +50,7 @@ void pendaftaran() {
 
 }
 
+
 void  menu_utama() {
     int ketik;
         cout<<endl;
@@ -75,6 +76,7 @@ void polijantung(bool kembali){
         cout<<endl;
         cout << " (1) Lihat Jadwal Perawatan" << endl;
         cout << " (2) Lihat Dokter" << endl;
+        cout << " (3) Lihat Tindakan" << endl;
         cout<<endl;
         cout << "ketik '0' untuk kembali" << endl;
         cout << "_____________________________________"<<endl;
@@ -150,6 +152,14 @@ void polijantung(bool kembali){
                     
                 } while(ketik != 0);  //ke menu
                 break;
+
+            case 3:
+                do
+                {
+                    cout << "DAFTAR TINDAKAN & PENANGANAN" << endl;
+                    cout << "__________________" << endl;
+                    cout << " "
+                } while();
 
             case 0:
                 kembali = true;
@@ -519,6 +529,7 @@ void  polibedah(bool kembali){
         cout<<endl;
         cout << " (1) Lihat Jadwal Perawatan" << endl;
         cout << " (2) Lihat Dokter" << endl;
+        cout << " (3) Lihat Tindakan" << endl;
         cout<<endl;
         cout << "ketik '0' untuk kembali" << endl;
         cout << "_____________________________________"<<endl;
@@ -595,6 +606,8 @@ void  polibedah(bool kembali){
                     
                 } while(ketik != 0);  //ke menu
                 break;
+
+            case 
 
             case 0:
                 kembali = true;
