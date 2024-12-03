@@ -7,6 +7,7 @@
 #include "json.hpp"
 #include <conio.h>
 #include <cctype>
+
 const char* GREEN = "\033[32m";
 const char* RED = "\033[31m";
 const char* YELLOW = "\033[33m";
@@ -70,7 +71,7 @@ int cekInputUmur(const string &prompt){
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
 // Memunculkan pesan             
             cout << RED << "Input harus Diisi dengan Angka dan Tidak Boleh Kosong\n" << RESET;
-        }else if(input > 100 && input <= 0){
+        }else if(input > 100 || input <= 0){
             cout << RED << "Input terlalu tinggi atau terlalu rendah!\n" << RESET;
         } else {
 // Apabila input adalah angka maka akan mengembalikan nilai input            
@@ -155,7 +156,7 @@ bool cekBPJS(const string& prompt) {
     }
 }
 
-string cekInputDate(const string& prompt){
+string cekInputDate(const string& prompt){//Tanggal Nasih Bisa Ngaco
     struct tm date = {};
     string input;
     while(true){
@@ -365,7 +366,7 @@ void pendaftaran() {
 
     int id = data["Pasien"].size() + 1;
     string nik = cekInputNIK("Masukan NIK Pasien : ");
-    int umur = cekInputUmusr("Masukan Umur Pasien : ");
+    int umur = cekInputUmur("Masukan Umur Pasien : ");
     string nama = cekInputString("Masukan Nama Pasien : ");
     string jenis_kelamin = cekInputKelamin("Masukan Jenis Kelamin [L/P] : ");
     bool bpjs = cekBPJS("Apakah Anda Pengguna BPJS? [Y/N] : ");
@@ -952,7 +953,6 @@ void pemilihanPoli() {
     }
     saveData(data);
 }
-
 
 int main() {
     // crud();
