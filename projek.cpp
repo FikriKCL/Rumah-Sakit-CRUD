@@ -27,78 +27,6 @@ struct Tindakan{
 };
 
 
-// Load data from JSON file
-json loadData() {
-    std::ifstream file(fileJSON);
-
-    // Cek Apakah file dapat dibuka
-    if (!file.is_open()) {
-        cerr << "Error: Could not open the file." << endl;
-        return json{}; // Mengembalikan JSoN
-    }
-    
-    // Cek apakah file kosong
-    if (file.peek() == std::ifstream::traits_type::eof()) {
-        cout << "File is empty, initializing with empty JSON." << endl;
-        return json{};
-    }
-
-    json data;
-    
-    try {
-        file >> data; // Parse the JSON data
-    } catch (const json::parse_error& e) {
-        cerr << "Parse error: " << e.what() << endl;
-        return json{}; // Return an empty JSON object on parse failure
-    }
-
-    file.close(); // Close the file
-    return data;
-}
-
-
-// Save data ke JSON
-void saveData(const json& data) {
-    std::ofstream file(fileJSON);
-
-    // cek apakah file dapat dibuka
-    if (!file.is_open()) {
-        cerr << "Error: Could not open the file for saving." << endl;
-        return;
-    }
-
-    try {
-        file << data.dump(4); // Pretty-print JSON with 4 spaces indentation
-    } catch (const std::exception& e) {
-        cerr << "Error while writing to the file: " << e.what() << endl;
-    }
-
-    file.close(); // Tutup file
-}
-
-
-// Mencetak Pembatas
-void pembatas(){
-    cout << GREEN << string(100, '=') << RESET <<endl;
-}
-
-// Display the welcome menu
-void menu() {
-    cout << GREEN << "                                        Selamat Datang" << endl;
-
-    string judul = R"(
-  _____                           _        _____         _     _  _     _    _  _____  _____ 
- |  __ \                         | |      / ____|       | |   (_)| |   | |  | ||  __ \|_   _|
- | |__) |_   _  _ __ ___    __ _ | |__   | (___    __ _ | | __ _ | |_  | |  | || |__) | | |  
- |  _  /| | | || '_ ` _ \  / _` || '_ \   \___ \  / _` || |/ /| || __| | |  | ||  ___/  | |  
- | | \ \| |_| || | | | | || (_| || | | |  ____) || (_| ||   < | || |_  | |__| || |     _| |_ 
- |_|  \_\\__,_||_| |_| |_| \__,_||_| |_| |_____/  \__,_||_|\_\|_| \__|  \____/ |_|    |_____|
- )";
-pembatas();
-cout << GREEN << judul << endl;
-pembatas();
-}
-
 // Error handling String ke Integer
 // Proseduer Cek Input Integer digunakan untuk mengecek apakah input yang dimasukan oleh user adalah angka
 // Memilki parameter const string& prompt digunakan untuk menggantikan variable prompt di dalam fungsi ex: cekInputInteger("Masukan ID Pasien : ");
@@ -161,7 +89,8 @@ string cekInputString(const string &prompt) {
             cout << RED << "Input harus berupa huruf/kalimat tanpa angka atau simbol. Coba lagi.\n" << RESET;
         } else {
         //Mengembalikan Input apabila sudah benar
-            return input;         }
+            return input;        
+        }
     }
 }
 
@@ -189,7 +118,7 @@ string cekInputKelamin(const string& prompt) {
 // Error Mengecek BPJS apakah diisi dengan Y (True) dan N (False)
 // Prosedur CekBPJS digunakan untuk mengecek BPJS true atau false
 // Memilki parameter const string& prompt digunakan untuk menggantikan variable prompt di dalam fungsi ex: cekBPJS("Apakah anda pengguna BPJS : ");
-// "Apakah anda pengguna BPJS : " akan menggantikan variable prompt
+// "Apakah anda pengguna BPJS : " akan menggantikan variable prompt"
 bool cekBPJS(const string& prompt) {
     string input;
     while (true) {
@@ -202,6 +131,29 @@ bool cekBPJS(const string& prompt) {
         } else {
 // Selain itu mengembalikan input "Y" atau true            
             return input == "Y";
+        }
+    }
+}
+
+string cekInputDate(const string& prompt){
+    struct tm date = {};
+    string input;
+    while(true){
+        cout << GREEN << prompt << RESET;
+        getline(cin, input);
+
+        stringstream ss(input);
+        char delimiter;
+        if(ss >> date.tm_mday >> delimiter >> date.tm_mon >> delimiter >> date.tm_year && delimiter == '/') {
+            date.tm_mon -= 1;
+            date.tm_year -= 1900;
+            if (mktime(&date) != -1) {
+                return input;
+            }else{
+                cout << RED << "Tanggal Salah. Silahkan isi kembali!" << RESET << endl;
+            }
+        }else{
+            cout << RED << "Format Tanggal Salah. Silahkan isi kembali!" << RESET << endl;
         }
     }
 }
@@ -225,113 +177,117 @@ int hiddenInput(char maxChoice) {
     }
 }
 
-void pembayaran() {
-    pembatas();
-    json data = loadData(); 
-    int pembayaran, uang;
-    bool bpjsStatus = data["Pasien"].back()["BPJS"]; 
-    int id = data["Pasien"].back()["id"]; 
+// Load data from JSON file
+json loadData() {
+    std::ifstream file(fileJSON);
 
-    bool found = false;  // cek apakah id pasien ketemu
-    int totalBiaya = 0;  // untuk jumlah biaya total
-
-    // loop untuk mencari ddata pasien
-    for (size_t i = 0; i < data["Pasien"].size(); ++i) {
-        if (data["Pasien"][i]["id"] == id) {  // cek apakah id pasien sama dengan id terkini yang diambil
-            found = true;
-            
-            cout << GREEN << "Struk Pembayaran\n";
-
-            // Print setiap data tindakan dan menjumlahkan totalnya
-            cout << GREEN << "Tindakan:\n";
-            for (size_t j = 0; j < data["Pasien"][i]["tindakan"].size(); ++j) {
-                int hargaTindakan = data["Pasien"][i]["tindakan"][j]["hargaTindakan"].get<int>();  // mengambil value integer dari hargaTindakan
-                cout << "  - " << data["Pasien"][i]["tindakan"][j]["namaTindakan"] 
-                     << " (Rp-" << hargaTindakan << ")\n";
-                totalBiaya += hargaTindakan;  // menambahkan harga ke total biaya
-            }
-
-            // Print setiap data obat
-            cout << GREEN << "Obat:\n";
-            for (size_t j = 0; j < data["Pasien"][i]["obat"].size(); ++j) {
-                int hargaObat = data["Pasien"][i]["obat"][j]["hargaObat"].get<int>();  // mengambil value integer dari hargaTindakan
-                cout << "  - " << data["Pasien"][i]["obat"][j]["namaObat"] 
-                     << " (Rp-" << hargaObat << ")\n";
-                totalBiaya += hargaObat;  // menambahkan ke total biaya
-            }
-
-            // mencetak total biaya
-            cout << GREEN << "Total Biaya Obat & Tindakan adalah Rp-" << totalBiaya << endl;
-
-            break;  // Keluar loop ketika id ketemu
-        }
+    // Cek Apakah file dapat dibuka
+    if (!file.is_open()) {
+        cerr << "Error: Could not open the file." << endl;
+        return json{}; // Mengembalikan JSoN
+    }
+    
+    // Cek apakah file kosong
+    if (file.peek() == std::ifstream::traits_type::eof()) {
+        cout << "File is empty, initializing with empty JSON." << endl;
+        return json{};
     }
 
-    //Apabila tidak id tidak ketemu akan mencetak pesan
-    if (!found) {
-        cout << RED << "Pasien dengan ID " << id << " tidak ditemukan.\n";
+    json data;
+    
+    try {
+        file >> data; // Parse the JSON data
+    } catch (const json::parse_error& e) {
+        cerr << "Parse error: " << e.what() << endl;
+        return json{}; // Return an empty JSON object on parse failure
+    }
+
+    file.close(); // Tutup File
+    return data;
+}
+
+// Save data ke JSON
+void saveData(const json& data) {
+    std::ofstream file(fileJSON);
+
+    // cek apakah file dapat dibuka
+    if (!file.is_open()) {
+        cerr << "Error: Could not open the file for saving." << endl;
         return;
     }
 
-    if (!bpjsStatus) {
-        // Kalau BPJS tidak aktif maka akan melanjutkan pembayaran
-        cout << "Pembayaran\n1. Cash\n2. Kredit\n";
-        pembayaran = cekInputInteger("Silahkan Pilih Pembayaran\n"); 
+    try {
+        file << data.dump(4); // Pretty-print JSON with 4 spaces indentation
+    } catch (const std::exception& e) {
+        cerr << "Error while writing to the file: " << e.what() << endl;
+    }
 
-        // Apabila memilih Kredit maka tidak harus memasukan nominal 
-        if (pembayaran == 2) {
-            bool done = false;
-            do{
-            uang = cekInputInteger("Masukan Jumlah uang di kredit anda : ");
-            if(uang > totalBiaya){
-                cout << GREEN << "Pembayaran Kredit berhasil, terima kasih!\n";
-                cout << GREEN << "Sisa uang di kredit anda : " << uang - totalBiaya;
-                done = true;
-            }else if (uang == totalBiaya){
-                 cout << GREEN << "Pembayaran Kredit berhasil, terima kasih!\n";   
-                 done = true;
-            }else{
-                cout << RED << "Pembayaran gagal. Saldo tidak cukup!";
-            }
-            }while(!done);
-        //Apabila memilih 1. Cash maka akan meminta memasukan jumlah uang        
-        } else if (pembayaran == 1) {
-            bool done = false;
-            do {
-                uang = cekInputInteger("Silahkan Masukan Jumlah Uang\n"); //Mengambil jumlah dari user
-                if (uang < totalBiaya) {
-                    cout << RED << "Uang kurang, silahkan ulangi!\n";
-                } else if(uang = totalBiaya){ 
-                    cout << GREEN << "Pembayaran berhasil, terima kasih!\n";
-                    done = true; // Kalau sesuai maka loop berhenti
-                } else {
-                    cout << GREEN << "Pembayaran berhasil, terima kasih!\n";
-                    cout << GREEN << "Kembalian anda : " << uang - totalBiaya << endl;
-                    done = true;
-                }
-            } while (!done); // Terus nge loop apabila uang masih kurang.
-        } else {
-            cout << RED << "Pilihan tidak valid!\n";
-        }
+    file.close(); // Tutup file
+}
 
-        // Menambahkan data jenis pembayaran ke dalam JSON
-        bool paymentUpdated = false;
-        for (size_t i = 0; i < data["Pasien"].size(); ++i) {
-            if (data["Pasien"][i]["id"] == id) {
-                data["Pasien"][i]["tipe_bayar"] = pembayaran;
-                paymentUpdated = true;
-                break;
-            }
-        }
+void deleteItem() {
+    json data = loadData();
+    string id;
 
-        if (paymentUpdated) {
-            saveData(data); // Save data
-        } else {
-            cout << RED << "Pasien tidak ditemukan.\n";
-        }
+    cout << "Masukan Id Pasien yang ingin di delete :  ";
+    cin >> id;
+
+    if (data["Pasien"].contains(id)) {
+        data["Pasien"].erase(id);
+        saveData(data);
+        cout << "Pasien berhasil di delete successfully!" << endl;
+    } else {
+        cout << "Pasien tidak ditemukan!" << endl;
     }
 }
 
+void crud(){
+    cout << GREEN << "CRUD" << endl;
+    cout << "1. Tampilkan Pasien\n2. Tambahkan Pasien\n3. Delete Pasien\n4. Update Pasien\n";
+    int pilihan = cekInputInteger("Masukan Pilihan ! : ");
+    switch(pilihan){
+        case 1:
+        //read
+        cout << "Read";
+        break;
+        case 2:
+        //create
+        cout << "Create";
+        break;
+        case 3:
+        //delete 
+        deleteItem();
+        break;
+        case 4:
+        //Update
+        cout << "Update\n";
+        break; 
+        default:
+        cout << "Pilihan tidak ditemukan!";
+        break;
+    }
+}
+// Mencetak Pembatas
+void pembatas(){
+    cout << GREEN << string(100, '=') << RESET <<endl;
+}
+
+// Display the welcome menu
+void menu() {
+    cout << GREEN << "                                        Selamat Datang" << endl;
+
+    string judul = R"(
+  _____                           _        _____         _     _  _     _    _  _____  _____ 
+ |  __ \                         | |      / ____|       | |   (_)| |   | |  | ||  __ \|_   _|
+ | |__) |_   _  _ __ ___    __ _ | |__   | (___    __ _ | | __ _ | |_  | |  | || |__) | | |  
+ |  _  /| | | || '_ ` _ \  / _` || '_ \   \___ \  / _` || |/ /| || __| | |  | ||  ___/  | |  
+ | | \ \| |_| || | | | | || (_| || | | |  ____) || (_| ||   < | || |_  | |__| || |     _| |_ 
+ |_|  \_\\__,_||_| |_| |_| \__,_||_| |_| |_____/  \__,_||_|\_\|_| \__|  \____/ |_|    |_____|
+ )";
+pembatas();
+cout << GREEN << judul << endl;
+pembatas();
+}
 //Prosedur BPJS pada tahap penentuan biaya
 // Memilki parameter bool bpjs, struct tindakan, int biaya
 bool bpjs(bool bpjs, Tindakan &tindakan) {
@@ -352,6 +308,35 @@ bool bpjs(bool bpjs, Tindakan &tindakan) {
 
 }
 
+string cekInputNIK(const string &prompt) {
+    string input;
+    while (true) {
+        cout << GREEN << prompt << RESET;
+        getline(cin, input);
+        // Check if input is empty
+        if (input.empty()) {
+            cout << "Input tidak boleh kosong. Coba lagi.\n";
+        } 
+        // Check if input contains only digits
+        else {
+            bool isNumeric = true;
+            for (char ch : input) {
+                if (!isdigit(ch)) {
+                    isNumeric = false;
+                    break;
+                }
+            }
+            if (!isNumeric) {
+                cout << RED << "Input harus angka. Coba Lagi!.\n";
+            } 
+            // Return valid input
+            else {
+                return input;        
+            }
+        }
+    }
+}
+
 // Fungsi Pendaftaran
 void pendaftaran() {
 //Memuat data dari File melalui prosedur loadData()
@@ -362,12 +347,12 @@ void pendaftaran() {
     }
 
     int id = data["Pasien"].size() + 1;
-    long long int nik = cekInputInteger("Masukan NIK Pasien : ");
+    string nik = cekInputNIK("Masukan NIK Pasien : ");
     int umur = cekInputInteger("Masukan Umur Pasien : ");
     string nama = cekInputString("Masukan Nama Pasien : ");
     string jenis_kelamin = cekInputKelamin("Masukan Jenis Kelamin [L/P] : ");
     bool bpjs = cekBPJS("Apakah Anda Pengguna BPJS? [Y/N] : ");
-    string ttl = cekInputString("Masukan Tempat Tanggal Lahir [DD/MM/YYYY] : ");
+    string ttl = cekInputDate("Masukan Tempat Tanggal Lahir [DD/MM/YYYY] : ");
 
     //Mendeklarasikan data ke dalam variabel yang akan di simpan di file JSON yang telah dibuat
      pasien = {{"id", id}, {"nama", nama}, {"nik", nik}, {"umur", umur}, {"jenis_kelamin", jenis_kelamin}, {"ttl", ttl}, {"BPJS", bpjs}};
@@ -562,14 +547,83 @@ void pilihTindakan(int id_tindakan, string keluhan) {
         saveData(data);
     }
 
+void pilihDokter(int id_poli) {
+    json data = loadData();
+    int id_dokter = 0;
+    do {
+        pembatas();
+        switch (id_poli) {
+        case 1: // Poli Gigi 
+            cout << GREEN << "Dokter Gigi\n" << RESET;
+            pembatas();
+            cout << GREEN << "1. Drg. Asep (Spesialis Gigi)\n2. Drg. Budi (Spesialis Gigi)\n3. Drg. Anugrah (Spesialis Gigi)\n4. Drg. Bisma (Spesialis Gigi)\n5. Drg. Vivi (Spesialis Gigi)\n6. Selesai" << RESET << endl;
+            id_dokter = hiddenInput('6');
+            if (id_dokter >= 1 && id_dokter <= 5) {
+                string dokterGigi[] = {"Drg. Asep (Spesialis Gigi)", "Drg. Budi (Spesialis Gigi)", "Drg. Anugrah (Spesialis Gigi)", "Drg. Bisma (Spesialis Gigi)", "Drg. Vivi (Spesialis Gigi)"};
+                pasien["dokter"] = dokterGigi[id_dokter - 1];
+                data["Pasien"].push_back(pasien);
+            }
+            break;
+        case 2: // Poli Umum 
+            cout << GREEN << "Dokter Umum\n" << RESET;
+            pembatas();
+            cout << GREEN << "1. Dr. Rahman (Spesialis Umum)\n2. Dr. Siti (Spesialis Umum)\n3. Dr. Indra (Spesialis Umum)\n4. Dr. Fajar (Spesialis Umum)\n5. Dr. Lala (Spesialis Umum)\n6. Selesai" << RESET << endl;
+            id_dokter = hiddenInput('6');
+            if (id_dokter >= 1 && id_dokter <= 5) {
+                string dokterUmum[] = {"Dr. Rahman (Spesialis Umum)", "Dr. Siti (Spesialis Umum)", "Dr. Indra (Spesialis Umum)", "Dr. Fajar (Spesialis Umum)", "Dr. Lala (Spesialis Umum)"};
+                data["dokter"] = dokterUmum[id_dokter - 1];
+                data["Pasien"].push_back(pasien);
+            }
+            break;
+        case 3: // Poli Anak 
+            cout << GREEN << "Dokter Anak\n" << RESET;
+            pembatas();
+            cout << GREEN << "1. Dr. Andi (Spesialis Anak)\n2. Dr. Maya (Spesialis Anak)\n3. Dr. Fitri (Spesialis Anak)\n4. Dr. Wawan (Spesialis Anak)\n5. Dr. Nina (Spesialis Anak)\n6. Selesai" << RESET << endl;
+            id_dokter = hiddenInput('6');
+            if (id_dokter >= 1 && id_dokter <= 5) {
+                string dokterAnak[] = {"Dr. Andi (Spesialis Anak)", "Dr. Maya (Spesialis Anak)", "Dr. Fitri (Spesialis Anak)", "Dr. Wawan (Spesialis Anak)", "Dr. Nina (Spesialis Anak)"};
+                pasien["dokter"] = dokterAnak[id_dokter - 1];
+                data["Pasien"].push_back(pasien);
+            }
+            break;
+        case 4: // Poli Kejiwaan 
+            cout << GREEN << "Dokter Kejiwaan\n" << RESET;
+            pembatas();
+            cout << GREEN << "1. Dr. Hasan (Spesialis Kejiwaan)\n2. Dr. Sari (Spesialis Kejiwaan)\n3. Dr. Devi (Spesialis Kejiwaan)\n4. Dr. Eko (Spesialis Kejiwaan)\n5. Dr. Rizky (Spesialis Kejiwaan)\n6. Selesai" << RESET << endl;
+            id_dokter = hiddenInput('6');
+            if (id_dokter >= 1 && id_dokter <= 5) {
+                string dokterKejiwaan[] = {"Dr. Hasan (Spesialis Kejiwaan)", "Dr. Sari (Spesialis Kejiwaan)", "Dr. Devi (Spesialis Kejiwaan)", "Dr. Eko (Spesialis Kejiwaan)", "Dr. Rizky (Spesialis Kejiwaan)"};
+                pasien["dokter"] = dokterKejiwaan[id_dokter - 1];
+                data["Pasien"].push_back(pasien);
+            }
+            break;
+        case 5: // Poli Orthopedi 
+            cout << GREEN << "Dokter Orthopedi\n" << RESET;
+            pembatas();
+            cout << GREEN << "1. Dr. Seno (Spesialis Orthopedi)\n2. Dr. Lestari (Spesialis Orthopedi)\n3. Dr. Prasetyo (Spesialis Orthopedi)\n4. Dr. Rina (Spesialis Orthopedi)\n5. Dr. Arya (Spesialis Orthopedi)\n6. Selesai" << RESET << endl;
+            id_dokter = hiddenInput('6');
+            if (id_dokter >= 1 && id_dokter <= 5) {
+                string dokterOrthopedi[] = {"Dr. Seno (Spesialis Orthopedi)", "Dr. Lestari (Spesialis Orthopedi)", "Dr. Prasetyo (Spesialis Orthopedi)", "Dr. Rina (Spesialis Orthopedi)", "Dr. Arya (Spesialis Orthopedi)"};
+                pasien["dokter"] = dokterOrthopedi[id_dokter - 1];
+                data["Pasien"].push_back(pasien);
+
+            }
+            break;
+        default:
+            cout << RED << "Poliklinik tidak valid!" << RESET << endl;
+            return;
+        }
+    } while (id_dokter != 6); 
+    saveData(data);
+}
+
 void pemilihanObat(Obat obat[], int jumlahObat) {
     pembatas();
     json data = loadData();
     int id = data["Pasien"].back()["id"];
     bool bpjsStatus = data["Pasien"].back()["BPJS"]; // Mengambil data BPJS
-
-    srand(0);
     // Random jumlah obat diberikan
+    srand(time(0));
     int quantityObat = 1 + rand() % jumlahObat;
 
     if (!bpjsStatus) {  
@@ -578,7 +632,7 @@ void pemilihanObat(Obat obat[], int jumlahObat) {
             cout << GREEN << obat[random].namaObat << endl;
             cout << GREEN << "Rp-" << obat[random].hargaObat << RESET << endl;
 
-            // Append the obat data to the corresponding patient
+            // Menambahkan data ke pasien tersebut
             for (size_t j = 0; j < data["Pasien"].size(); ++j) {
                 if (data["Pasien"][j]["id"] == id) {
                     data["Pasien"][j]["obat"].push_back({
@@ -610,20 +664,136 @@ void pemilihanObat(Obat obat[], int jumlahObat) {
     }
 }
 
+void pembayaran() {
+    pembatas();
+    json data = loadData(); 
+    int pembayaran, uang;
+    bool bpjsStatus = data["Pasien"].back()["BPJS"]; 
+    int id = data["Pasien"].back()["id"]; 
+
+    bool found = false;  // cek apakah id pasien ketemu
+    int totalBiaya = 0;  // untuk jumlah biaya total
+
+    // loop untuk mencari ddata pasienq
+    for (size_t i = 0; i < data["Pasien"].size(); ++i) {
+        if (data["Pasien"][i]["id"] == id) {  // cek apakah id pasien sama dengan id terkini yang diambil
+            found = true;
+            
+            cout << GREEN << "Struk Pembayaran\n";
+
+            // Print setiap data tindakan dan menjumlahkan totalnya
+            cout << GREEN << "Tindakan:\n";
+            for (size_t j = 0; j < data["Pasien"][i]["tindakan"].size(); ++j) {
+                int hargaTindakan = data["Pasien"][i]["tindakan"][j]["hargaTindakan"].get<int>();  // mengambil value integer dari hargaTindakan
+                cout << "  - " << data["Pasien"][i]["tindakan"][j]["namaTindakan"] 
+                     << " (Rp-" << hargaTindakan << ")\n";
+                totalBiaya += hargaTindakan;  // menambahkan harga ke total biaya
+            }
+
+            // Print setiap data obat
+            cout << GREEN << "Obat:\n";
+            for (size_t j = 0; j < data["Pasien"][i]["obat"].size(); ++j) {
+                int hargaObat = data["Pasien"][i]["obat"][j]["hargaObat"].get<int>();  // mengambil value integer dari hargaTindakan
+                cout << "  - " << data["Pasien"][i]["obat"][j]["namaObat"] 
+                     << " (Rp-" << hargaObat << ")\n";
+                totalBiaya += hargaObat;  // menambahkan ke total biaya
+            }
+
+            // mencetak total biaya
+            cout << GREEN << "Total Biaya Obat & Tindakan adalah Rp-" << totalBiaya << endl;
+
+            break;  // Keluar loop ketika id ketemu
+        }
+    }
+
+    //Memasukan Total Biaya Ke Json
+    for(size_t i = 0; i < data["Pasien"].size(); i++){
+        if(data["Pasien"][i]["id"] == id){
+            data["Pasien"][i]["totalBiaya"] = totalBiaya;
+            break;
+        }
+
+    }
+
+
+    //Apabila tidak id tidak ketemu akan mencetak pesan
+    if (!found) {
+        cout << RED << "Pasien dengan ID " << id << " tidak ditemukan.\n";
+        return;
+    }
+
+    if (!bpjsStatus) {
+        // Kalau BPJS tidak aktif maka akan melanjutkan pembayaran
+        cout << "Pembayaran\n1. Cash\n2. Kredit\n";
+        pembayaran = cekInputInteger("Silahkan Pilih Pembayaran\n"); 
+
+        // Apabila memilih Kredit maka tidak harus memasukan nominal 
+        if (pembayaran == 2) {
+            bool done = false;
+            do{
+            uang = cekInputInteger("Masukan Jumlah uang di kredit anda : ");
+            if(uang > totalBiaya){
+                cout << GREEN << "Pembayaran Kredit berhasil, terima kasih!\n";
+                cout << GREEN << "Sisa uang di kredit anda : " << uang - totalBiaya;
+                done = true;
+            }else if (uang == totalBiaya){
+                 cout << GREEN << "Pembayaran Kredit berhasil, terima kasih!\n";   
+                 done = true;
+            }else{
+                cout << RED << "Pembayaran gagal. Saldo tidak cukup!";
+            }
+            }while(!done);
+            saveData(data); 
+        //Apabila memilih 1. Cash maka akan meminta memasukan jumlah uang        
+        } else if (pembayaran == 1) {
+            bool done = false;
+            do {
+                uang = cekInputInteger("Silahkan Masukan Jumlah Uang\n"); //Mengambil jumlah dari user
+                if (uang < totalBiaya) {
+                    cout << RED << "Uang kurang, silahkan ulangi!\n";
+                } else if(uang = totalBiaya){ 
+                    cout << GREEN << "Pembayaran berhasil, terima kasih!\n";
+                    done = true; // Kalau sesuai maka loop berhenti
+                } else if(uang > totalBiaya){
+                    cout << GREEN << "Pembayaran berhasil, terima kasih!\n";
+                    cout << GREEN << "Kembalian anda : " << uang - totalBiaya << endl;
+                    done = true;
+                }
+            } while (!done);// Terus nge loop apabila uang masih kurang.
+            saveData(data); 
+        } else {
+            cout << RED << "Pilihan tidak valid!\n";
+        }
+
+        // Menambahkan data jenis pembayaran ke dalam JSON
+        bool paymentUpdated = false;
+        for (size_t i = 0; i < data["Pasien"].size(); ++i) {
+            if (data["Pasien"][i]["id"] == id) {
+                data["Pasien"][i]["tipe_bayar"] = pembayaran;
+                paymentUpdated = true;
+                break;
+            }
+        }
+
+        if (paymentUpdated) {
+            saveData(data); // Save data
+        } else {
+            cout << RED << "Pasien tidak ditemukan.\n";
+        }
+    }
+}
+
 // Fungsi Poliklinik
 void poliGigi() {
     pembatas();
     Obat obatGigi[] = {{"Penghilang Nyeri Gigi", 5000},{"Obat Gusi Bengkak", 10000},{"Antibiotik Gigi", 8000},{"Obat Kumur Antiseptik", 15000},{"Obat Luka Dalam Mulut", 20000}};
     string keluhan;
+    int jumlahObat = sizeof(obatGigi) / sizeof (obatGigi[0]);
     cout << GREEN << "Anda di Poli Gigi!" << RESET << endl;
     cout << GREEN << "Silahkan Konsultasi ke Dokter!\nJelaskan Keluhan Anda!\n" << RESET;
     getline(cin, keluhan);
+    pilihDokter(1);
     pilihTindakan(1, keluhan);
-
-    int jumlahObat = sizeof(obatGigi) / sizeof (obatGigi[0]);
-
-    // cout << "Jumlah Obat adalah : " <<  jumlahObat;
-
     pemilihanObat(obatGigi, jumlahObat);
     pembayaran();
 
@@ -634,8 +804,8 @@ void poliUmum() {
     Obat obatUmum[] = {{"Penurun Demam", 5000},{"Obat Sakit Kepala", 5000},{"Vitamin untuk Daya Tahan Tubuh", 7000},{"Obat Maag", 8000},{"Penghilang Nyeri Otot", 12000}};
     string keluhan;
     int jumlahObat = sizeof(obatUmum) / sizeof (obatUmum[0]);
-
     cout << GREEN << "Anda di Poli Umum!" << RESET << endl;
+    pilihDokter(2);
     pilihTindakan(2,keluhan);
     pemilihanObat(obatUmum, jumlahObat);
     pembayaran();
@@ -645,9 +815,9 @@ void poliOrthopedi() {
     pembatas();
     Obat obatOrthopedi[] = {{"Obat Penguat Tulang", 20000},{"Obat Nyeri Sendi", 15000},{"Obat Anti Radang Sendi", 10000},{"Vitamin Tulang", 25000},{"Krim Penghilang Pegal", 12000}};
     string keluhan;
-    int jumlahObat = sizeof(obatOrthopedi) / sizeof (obatOrthopedi[0]);
-
+    int jumlahObat = sizeof(obatOrthopedi) / sizeof (obatOrthopedi[0]); //Mengambil size dari array output : 5
     cout << GREEN << "Anda di Poli Orthopedi!" << RESET;
+    pilihDokter(3);
     pilihTindakan(3,keluhan);
     pemilihanObat(obatOrthopedi, jumlahObat);
     pembayaran();
@@ -657,8 +827,9 @@ void poliAnak() {
     pembatas();
     Obat obatAnak[] = {{"Obat Penurun Demam Anak", 5000},{"Vitamin Anak", 7000},{"Obat Batuk Anak", 8000},{"Obat Pilek Anak", 6000},{"Obat Nyeri Tumbuh Gigi Anak", 10000}};  
     string keluhan;
+    int jumlahObat = sizeof(obatAnak) / sizeof (obatAnak[0]); //Mengambil size dari array output : 5
     cout << GREEN << "Anda di Poli Anak!" << RESET;
-    int jumlahObat = sizeof(obatAnak) / sizeof (obatAnak[0]);
+    pilihDokter(4);
     pilihTindakan(4,keluhan);
     pemilihanObat(obatAnak, jumlahObat);
     pembayaran();
@@ -670,6 +841,7 @@ void poliKejiwaan() {
     string keluhan;
     int jumlahObat = sizeof(obatKejiwaan) / sizeof (obatKejiwaan[0]);
     cout << GREEN << "Anda di Poli Kejiwaan!" << RESET;
+    pilihDokter(5);
     pilihTindakan(5,keluhan);
     pemilihanObat(obatKejiwaan, jumlahObat);
     pembayaran();
@@ -677,11 +849,13 @@ void poliKejiwaan() {
 
 void pemilihanPoli() {
     int poli = 0;
+    json data = loadData();
     char ch;
+    string poliName;
     bool done = false;
 
-    do{   
-        cout << GREEN <<"Pilih Poliklinik\n1.Poliklinik Gigi\n2.Poliklinik Umum\n3.Poliklinik Kejiwaan\n4.Poliklinik Anak\n5.Poliklinik Orthopedi\n";
+    do {   
+        cout << GREEN <<"Pilih Poliklinik\n1.Poliklinik Gigi\n2.Poliklinik Umum\n3.Poliklinik Kejiwaan\n4.Poliklinik Anak\n5.Poliklinik Orthopedi\n6. Selesai";
 
         ch = _getch();
         cout << endl;
@@ -695,32 +869,43 @@ void pemilihanPoli() {
         switch (poli) {
             case 1:
                 poliGigi();
+                poliName = "Poliklinik Gigi";
                 break;
             case 2:
                 poliUmum();
+                poliName = "Poliklinik Umum";
                 break;
             case 3:
                 poliKejiwaan();
+                poliName = "Poliklinik Kejiwaan";
                 break;
             case 4:
                 poliAnak();
+                poliName = "Poliklinik Anak";
                 break;
             case 5:
                 poliOrthopedi();
+                poliName = "Poliklinik Orthopedi";
                 break;
             case 6:
                 cout << GREEN << "Terima kasih telah menggunakan layanan kami!" << RESET << endl;
                 done = true; 
-            break;
+                break;
             default:
                 cout << " Poliklinik Belum Ada!" << endl;
                 break;
         }
-    }while(!done);
+        done = true;
+    } while (!done);
     
+    pasien["poli"] = poliName;
+    data["Pasien"].push_back(pasien);
+    saveData(data);
 }
 
+
 int main() {
+    // crud();
     menu();
     pendaftaran();
     pemilihanPoli();
