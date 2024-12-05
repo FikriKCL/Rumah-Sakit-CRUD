@@ -2,56 +2,15 @@
     "Pasien": [
         {
             "BPJS": false,
-            "dokter": "Drg. Asep (Spesialis Gigi)",
             "id": 1,
             "jenis_kelamin": "L",
-            "nama": "l",
-            "nik": "1231231",
+            "nama": "Joseph",
+            "nik": "123123131",
             "obat": [
                 {
                     "hargaObat": 8000,
                     "namaObat": "Antibiotik Gigi"
                 },
-                {
-                    "hargaObat": 10000,
-                    "namaObat": "Obat Gusi Bengkak"
-                },
-                {
-                    "hargaObat": 15000,
-                    "namaObat": "Obat Kumur Antiseptik"
-                },
-                {
-                    "hargaObat": 8000,
-                    "namaObat": "Antibiotik Gigi"
-                },
-                {
-                    "hargaObat": 15000,
-                    "namaObat": "Obat Kumur Antiseptik"
-                },
-                {
-                    "hargaObat": 8000,
-                    "namaObat": "Antibiotik Gigi"
-                }
-            ],
-            "tindakan": [
-                {
-                    "hargaTindakan": 200000,
-                    "namaTindakan": "Tambal Gigi"
-                }
-            ],
-            "tipe_bayar": 1,
-            "totalBiaya": 264000,
-            "ttl": "22/07/2006",
-            "umur": 0
-        },
-        {
-            "BPJS": false,
-            "dokter": "Drg. Anugrah (Spesialis Gigi)",
-            "id": 2,
-            "jenis_kelamin": "L",
-            "nama": "Jojo",
-            "nik": "23131",
-            "obat": [
                 {
                     "hargaObat": 20000,
                     "namaObat": "Obat Luka Dalam Mulut"
@@ -59,6 +18,10 @@
                 {
                     "hargaObat": 5000,
                     "namaObat": "Penghilang Nyeri Gigi"
+                },
+                {
+                    "hargaObat": 20000,
+                    "namaObat": "Obat Luka Dalam Mulut"
                 }
             ],
             "tindakan": [
@@ -67,10 +30,8 @@
                     "namaTindakan": "Scaling Karang Gigi"
                 }
             ],
-            "tipe_bayar": 1,
-            "totalBiaya": 525000,
             "ttl": "22/07/2006",
-            "umur": 99
+            "umur": 20
         }
     ]
 }
