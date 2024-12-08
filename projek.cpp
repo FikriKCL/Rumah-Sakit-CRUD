@@ -185,8 +185,8 @@ bool cekBPJS(const string& prompt) {
         }
     }
 }
-
-string cekInputDate(const string& prompt){//Tanggal Nasih Bisa Ngaco
+// Error cek Input tanggal
+string cekInputDate(const string& prompt){
     struct tm date = {};
     string input;
     while(true){
@@ -208,7 +208,7 @@ string cekInputDate(const string& prompt){//Tanggal Nasih Bisa Ngaco
         }
     }
 }
-
+// hidden input
 int hiddenInput(char maxChoice) {
     char ch;
     int choice = 0;
@@ -227,17 +227,19 @@ int hiddenInput(char maxChoice) {
         return -1; 
     }
 }
-
+// Cek Input Nik
 string cekInputNIK(const string &prompt) {
     string input;
     while (true) {
         cout << GREEN << prompt << YELLOW;
         getline(cin, input);
-        // Check if input is empty
+        // Cek apakah input kosong?
         if (input.empty()) {
-            cout << "Input tidak boleh kosong. Coba lagi.\n";
-        } 
-        // Check if input contains only digits
+            cout << RED << "Input tidak boleh kosong. Coba lagi.\n" << RESET;
+        }else if(input.size() <= 16 || input.size() > 16){
+            cout << RED << "Input NIK tidak valid. Harus 16 Angka!\n" << RESET;
+        }
+        // Cek apakah input hanya mengandung angka
         else {
             bool isNumeric = true;
             for (char ch : input) {
@@ -256,8 +258,7 @@ string cekInputNIK(const string &prompt) {
         }
     }
 }
-
-// Load data from JSON file
+// Load data dari json
 json loadData() {
     std::ifstream file(fileJSON);
 
@@ -285,7 +286,6 @@ json loadData() {
     file.close(); // Tutup File
     return data;
 }
-
 // Save data ke JSON
 void saveData(const json& data) {
     std::ofstream file(fileJSON);
@@ -304,7 +304,7 @@ void saveData(const json& data) {
 
     file.close(); // Tutup file
 }
-
+// Read Item
 void readItems() {
     json data = loadData();
 
@@ -340,20 +340,23 @@ void readItems() {
         cout << GREEN << string(40, '-') << endl; 
     }
 }
-
+// Update Item
 void updateItem() {
     json data = loadData();
+    //Cek apakah data pasien kosong
     if (data["Pasien"].empty()) {
         cout << RED << "Data pasien kosong! Tidak ada yang bisa diperbarui." << RESET << endl;
         return;
     }
 
+    //Meminta id dari pasien yang ingin diupdate
     int id;
     cout << "Masukan ID Pasien yang ingin diupdate: ";
     cin >> id;
 
     bool found = false;
 
+    //Menginterasi data pasien, dan penggunaan dereference untuk berinteraksi dengan data secara langsung
     for (auto& pasien : data["Pasien"]) {
         if (pasien["id"] == id) {
             found = true;
@@ -419,7 +422,7 @@ void updateItem() {
         cout << RED << "Pasien dengan ID tersebut tidak ditemukan." << RESET << endl;
     }
 }
-
+// Delete Item
 void deleteItem() {
     json data = loadData();
     string id;
@@ -443,8 +446,6 @@ void deleteItem() {
         cout << RED << "Pasien tidak ditemukan!" << RESET << endl;
     }
 }
-
-
 // Menunjukan menu
 void menu() {
     cout << GREEN << "                                        Selamat Datang" << endl;
@@ -461,7 +462,6 @@ pembatas();
 cout << GREEN << judul << endl;
 pembatas();
 }
-
 // Fungsi Pendaftaran
 void pendaftaran() {
 //Memuat data dari File melalui prosedur loadData()
@@ -488,7 +488,7 @@ void pendaftaran() {
     saveData(data);
     pembatas();
 }
-
+// Pilih Poli
 void pemilihanPoli() {
     json data = loadData();  
     bool done = false;       
@@ -539,7 +539,6 @@ void pemilihanPoli() {
 
     if (!data["Pasien"].empty()) {  
         data["Pasien"].back()["poli"] = poliName;
-
         saveData(data);
         cout << GREEN << "Data berhasil disimpan!\n" << RESET;
     } else {
@@ -552,7 +551,6 @@ void pemilihanPoli() {
     else if (poliName == "Poliklinik Anak") poliAnak();
     else if (poliName == "Poliklinik Kejiwaan") poliKejiwaan();
 }
-
 // Fungsi Poliklinik
 void poliGigi() {
     cout << GREEN <<"Salah Pilih Poli ? Tekan 0 untuk kembali memilih poli atau tekan 1 untuk lanjut\n";
@@ -575,7 +573,7 @@ void poliGigi() {
     } 
 
 }
-
+// Pilih poliGigi
 void poliUmum() {
     cout << GREEN << "Salah Pilih Poli ? Tekan 0 untuk kembali memilih poli atau tekan 1 untuk lanjut\n";
     pembatas();
@@ -596,7 +594,7 @@ void poliUmum() {
     } 
     
 }   
-
+// Pilih poliOrthopedi
 void poliOrthopedi() {
     cout << GREEN << "Salah Pilih Poli ? Tekan 0 untuk kembali memilih poli atau tekan 1 untuk lanjut\n";
     pembatas();
@@ -617,7 +615,7 @@ void poliOrthopedi() {
     } 
     
 }
-
+// Pilih P
 void poliAnak() {
     cout << GREEN << "Salah Pilih Poli ? Tekan 0 untuk kembali memilih poli atau tekan 1 untuk lanjut\n";
     pembatas();
@@ -811,9 +809,7 @@ void pilihDokter(int id_poli) {
         }
     }
 }
-
-
-    //Sebuah prosedur yang berisi if else untuk memilih tindakan berdasarkan id_tindakan, akan dipanggil di fungsi Poliklinik masing-masing
+//Sebuah prosedur yang berisi if else untuk memilih tindakan berdasarkan id_tindakan, akan dipanggil di fungsi Poliklinik masing-masing
     //Alasan menggunakan if else agar  memasukan data ke json dapat dalam satu block. Tidak dimasing-masing switch case ditambahkan algoritma untuk menambahkan data
 void pilihTindakan(int id_tindakan, string keluhan) {
     json data = loadData(); // Memuat data
@@ -1192,7 +1188,6 @@ int main() {
         switch(pilihan) {
             case 1:
                 readItems();
-                //Masih Jelek
                 break;
             case 2:
                 menu();
@@ -1211,6 +1206,8 @@ int main() {
             default:
                 cout << "Pilihan tidak ditemukan!\n";
                 break;
+
+
         }
     }
 }

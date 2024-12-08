@@ -1,35 +1,39 @@
 {
     "Pasien": [
         {
-            "BPJS": true,
-            "dokter": "Drg. Asep (Spesialis Gigi)",
+            "BPJS": false,
+            "dokter": "Dr. Rahman (Spesialis Umum)",
             "id": 1,
             "jenis_kelamin": "L",
             "nama": "Fikri",
-            "nik": "122",
+            "nik": "20332",
             "obat": [
                 {
-                    "hargaObat": 0,
-                    "namaObat": "Obat Luka Dalam Mulut"
+                    "hargaObat": 5000,
+                    "namaObat": "Penurun Demam"
                 },
                 {
-                    "hargaObat": 0,
-                    "namaObat": "Penghilang Nyeri Gigi"
+                    "hargaObat": 7000,
+                    "namaObat": "Vitamin untuk Daya Tahan Tubuh"
                 },
                 {
-                    "hargaObat": 0,
-                    "namaObat": "Antibiotik Gigi"
+                    "hargaObat": 12000,
+                    "namaObat": "Penghilang Nyeri Otot"
                 }
             ],
-            "poli": "Poliklinik Gigi",
+            "poli": "Poliklinik Umum",
             "tindakan": [
                 {
-                    "hargaTindakan": 0,
-                    "namaTindakan": "Scaling Karang Gigi"
+                    "hargaTindakan": 80000,
+                    "namaTindakan": "Pemeriksaan Umum"
+                },
+                {
+                    "hargaTindakan": 100000,
+                    "namaTindakan": "Pemeriksaan Kesehatan"
                 }
             ],
-            "tipeBayar": "BPJS",
-            "totalBiaya": 0,
+            "tipeBayar": "Umum/Kredit",
+            "totalBiaya": 204000,
             "ttl": "22/07/2006",
             "umur": 20
         }
