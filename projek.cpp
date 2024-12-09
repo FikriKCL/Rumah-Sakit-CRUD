@@ -236,7 +236,9 @@ string cekInputNIK(const string &prompt) {
         // Cek apakah input kosong?
         if (input.empty()) {
             cout << RED << "Input tidak boleh kosong. Coba lagi.\n" << RESET;
-        }else if(input.size() <= 16 || input.size() > 16){
+        }else if(input.size() <= 16){
+            cout << RED << "Input NIK tidak valid. Harus 16 Angka!\n" << RESET;
+        }else if(input.size() > 16){    
             cout << RED << "Input NIK tidak valid. Harus 16 Angka!\n" << RESET;
         }
         // Cek apakah input hanya mengandung angka
@@ -810,7 +812,7 @@ void pilihDokter(int id_poli) {
     }
 }
 //Sebuah prosedur yang berisi if else untuk memilih tindakan berdasarkan id_tindakan, akan dipanggil di fungsi Poliklinik masing-masing
-    //Alasan menggunakan if else agar  memasukan data ke json dapat dalam satu block. Tidak dimasing-masing switch case ditambahkan algoritma untuk menambahkan data
+//Alasan menggunakan if else agar  memasukan data ke json dapat dalam satu block. Tidak dimasing-masing switch case ditambahkan algoritma untuk menambahkan data
 void pilihTindakan(int id_tindakan, string keluhan) {
     json data = loadData(); // Memuat data
     int id = data["Pasien"].back()["id"]; // Mengambil ID Pasien terakhir
