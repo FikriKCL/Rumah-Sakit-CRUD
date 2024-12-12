@@ -199,47 +199,69 @@ bool cekBPJS(const string& prompt) {
     }
 }
 // Error cek Input tanggal
-string cekInputDate(const string& prompt){
-    //Mendefinisikan variabel date
-    struct tm date = {};
+string cekInputDate(const string& prompt) {
+    // Mendefinisikan variabel 'date' yang berjenis struct tm untuk menyimpan informasi tanggal
+    struct tm date = {}; 
     string input;
-    while(true){
+    
+    // Loop tak terbatas untuk meminta input hingga tanggal yang valid diterima
+    while(true) {
+        // Menampilkan prompt yang diminta kepada pengguna dengan format warna
         cout << GREEN << prompt << YELLOW;
+        
+        // Mengambil input dari pengguna
         getline(cin, input);
-
+        
+        // Menggunakan stringstream untuk mem-parsing input dari string ke format yang sesuai
         stringstream ss(input);
         char delimiter;
-        if(ss >> date.tm_mday >> delimiter >> date.tm_mon >> delimiter >> date.tm_year && delimiter == '/') {
+        
+        // Mencoba membaca nilai hari, bulan, dan tahun dengan memeriksa apakah ada '/' sebagai delimiter
+        if (ss >> date.tm_mday >> delimiter >> date.tm_mon >> delimiter >> date.tm_year && delimiter == '/') {
+            // Menyesuaikan bulan (0-11) dan tahun (sejak 1900)
             date.tm_mon -= 1;
             date.tm_year -= 1900;
+            
+            // Mengecek apakah tanggal valid dengan menggunakan fungsi mktime
             if (mktime(&date) != -1) {
+                // Jika tanggal valid, mengembalikan input tanggal yang dimasukkan
                 return input;
-            }else{
+            } else {
+                // Jika mktime mengembalikan -1, artinya tanggal tidak valid
                 cout << RED << "Tanggal Salah. Silahkan isi kembali!" << RESET << endl;
             }
-        }else{
+        } else {
+            // Jika format input tidak sesuai dengan yang diharapkan (misalnya tidak ada '/' atau format salah)
             cout << RED << "Format Tanggal Salah. Silahkan isi kembali!" << RESET << endl;
         }
     }
 }
+
 // hidden input
 int hiddenInput(char maxChoice) {
     char ch;
     int choice = 0;
-        ch = _getch(); // Membaca satu karakter tanpa echo ke console
-
-        if (ch >= '0' && ch <= maxChoice) {
-            choice = ch - '0'; //konvert char ke integer
-            return choice;
-        }else if (ch == '\n'){
-            cout << "Tidak Boleh Kosong!" << endl;  
-            return -1;
-        } else {
-            cout << RED << "Pilihan tidak valid!" << endl;
-            pembatas();
-            return -1; 
-        }
+    
+    // Membaca satu karakter dari input pengguna tanpa menampilkan karakter tersebut ke layar
+    ch = _getch(); // Fungsi _getch() digunakan untuk menangkap karakter dari input tanpa mencetaknya ke konsol
+    
+    // Memeriksa apakah karakter yang dimasukkan berada dalam rentang angka yang valid (0 sampai maxChoice)
+    if (ch >= '0' && ch <= maxChoice) {
+        // Mengonversi karakter (misalnya '1') menjadi integer (1)
+        choice = ch - '0';
+        return choice; // Mengembalikan pilihan sebagai angka
+    } else if (ch == '\n') {
+        // Jika karakter yang dimasukkan adalah newline (enter), berarti input kosong
+        cout << "Tidak Boleh Kosong!" << endl;  
+        return -1; // Mengembalikan -1 jika input kosong
+    } else {
+        // Jika input tidak valid (misalnya karakter selain angka yang valid)
+        cout << RED << "Pilihan tidak valid!" << endl;
+        pembatas(); // Menambahkan pemisah visual (fungsi pembatas() diasumsikan untuk keperluan tampilan)
+        return -1; // Mengembalikan -1 jika input tidak valid
+    }
 }
+
 // Cek Input Nik
 string cekInputNIK(const string &prompt) {
     string input;
