@@ -595,10 +595,11 @@ void poliGigi() {
         cout << GREEN << "Salah Pilih Poli? Tekan 0 untuk kembali memilih poli atau tekan 1 untuk lanjut\nAnda di Poli Gigi\n";
         pembatas();
         int choice = hiddenInput('1'); // Ambil input dari fungsi hiddenInput()
+        
         // Validasi input
         if (choice == 0) {
             pemilihanPoli(); // Kembali ke pemilihan poli
-            return;
+            return; // Keluar dari fungsi dan kembali ke menu sebelumnya
         } else if (choice == 1) {
             pembatas();
             Obat obatGigi[] = {
@@ -618,7 +619,8 @@ void poliGigi() {
             pilihTindakan(1, keluhan); // Pilih tindakan berdasarkan keluhan
             pemilihanObat(obatGigi, jumlahObat); // Pilih obat
             pembayaran(); // Lakukan pembayaran
-            return; // Keluar dari loop setelah selesai
+
+            return; // Keluar dari loop setelah selesai, kembali ke menu utama
         } else {
             cout << RED << "Input tidak valid! Harap masukkan 0 atau 1." << RESET << endl;
         }
@@ -646,6 +648,7 @@ void poliUmum() {
         pilihTindakan(2,keluhan);
         pemilihanObat(obatUmum, jumlahObat);
         pembayaran();
+        return;
         }else{
             cout << RED << "Input tidak valid! Harap masukkan 0 atau 1." << RESET << endl;
         } 
@@ -672,6 +675,7 @@ void poliOrthopedi() {
         pilihTindakan(3, keluhan);
         pemilihanObat(obatOrthopedi, jumlahObat);
         pembayaran();
+        return;
     }else{
         cout << RED << "Input tidak valid! Harap masukkan 0 atau 1." << RESET << endl;
         }
@@ -698,6 +702,7 @@ void poliAnak() {
         pilihTindakan(4,keluhan);
         pemilihanObat(obatAnak, jumlahObat);
         pembayaran();
+        return;
     }else{
         cout << RED << "Input tidak valid! Harap masukkan 0 atau 1." << RESET << endl;
         } 
@@ -724,6 +729,7 @@ void poliKejiwaan() {
         pilihTindakan(5,keluhan);
         pemilihanObat(obatKejiwaan, jumlahObat);
         pembayaran();
+        return;
     }else{
         cout << RED << "Input tidak valid! Harap masukkan 0 atau 1." << RESET << endl;
         }

@@ -385,6 +385,26 @@
                 {
                     "hargaObat": 20000,
                     "namaObat": "Obat Luka Dalam Mulut"
+                },
+                {
+                    "hargaObat": 10000,
+                    "namaObat": "Obat Anti Radang Sendi"
+                },
+                {
+                    "hargaObat": 20000,
+                    "namaObat": "Obat Penguat Tulang"
+                },
+                {
+                    "hargaObat": 15000,
+                    "namaObat": "Obat Nyeri Sendi"
+                },
+                {
+                    "hargaObat": 25000,
+                    "namaObat": "Vitamin Tulang"
+                },
+                {
+                    "hargaObat": 15000,
+                    "namaObat": "Obat Nyeri Sendi"
                 }
             ],
             "poli": "Poliklinik Gigi",
@@ -426,6 +446,26 @@
                 {
                     "hargaObat": 10000,
                     "namaObat": "Obat Gusi Bengkak"
+                },
+                {
+                    "hargaObat": 12000,
+                    "namaObat": "Vitamin Otak"
+                },
+                {
+                    "hargaObat": 20000,
+                    "namaObat": "Obat Penenang"
+                },
+                {
+                    "hargaObat": 12000,
+                    "namaObat": "Vitamin Otak"
+                },
+                {
+                    "hargaObat": 25000,
+                    "namaObat": "Obat Stres"
+                },
+                {
+                    "hargaObat": 20000,
+                    "namaObat": "Obat Penenang"
                 }
             ],
             "poli": "Poliklinik Gigi",
@@ -437,6 +477,273 @@
             ],
             "tipeBayar": "Umum/Cash",
             "totalBiaya": 556000,
+            "ttl": "22/07/2006",
+            "umur": 20
+        },
+        {
+            "BPJS": false,
+            "dokter": "Dr. Seno (Spesialis Orthopedi)",
+            "id": 14,
+            "jenis_kelamin": "L",
+            "nama": "Fikri",
+            "nik": "3273152207060003",
+            "obat": [
+                {
+                    "hargaObat": 10000,
+                    "namaObat": "Obat Anti Radang Sendi"
+                },
+                {
+                    "hargaObat": 20000,
+                    "namaObat": "Obat Penguat Tulang"
+                },
+                {
+                    "hargaObat": 15000,
+                    "namaObat": "Obat Nyeri Sendi"
+                },
+                {
+                    "hargaObat": 25000,
+                    "namaObat": "Vitamin Tulang"
+                },
+                {
+                    "hargaObat": 15000,
+                    "namaObat": "Obat Nyeri Sendi"
+                }
+            ],
+            "poli": "Poliklinik Orthopedi",
+            "tindakan": [
+                {
+                    "hargaTindakan": 3000000,
+                    "namaTindakan": "Operasi Lutut"
+                }
+            ],
+            "tipeBayar": "Umum/Kredit",
+            "totalBiaya": 635000,
+            "ttl": "22/07/2006",
+            "umur": 18
+        },
+        {
+            "BPJS": false,
+            "dokter": "Dr. Hasan (Spesialis Kejiwaan)",
+            "id": 15,
+            "jenis_kelamin": "L",
+            "nama": "Jojo",
+            "nik": "3273152207060003",
+            "obat": [
+                {
+                    "hargaObat": 12000,
+                    "namaObat": "Vitamin Otak"
+                },
+                {
+                    "hargaObat": 20000,
+                    "namaObat": "Obat Penenang"
+                },
+                {
+                    "hargaObat": 12000,
+                    "namaObat": "Vitamin Otak"
+                },
+                {
+                    "hargaObat": 25000,
+                    "namaObat": "Obat Stres"
+                },
+                {
+                    "hargaObat": 20000,
+                    "namaObat": "Obat Penenang"
+                }
+            ],
+            "poli": "Poliklinik Kejiwaan",
+            "tindakan": [
+                {
+                    "hargaTindakan": 300000,
+                    "namaTindakan": "Konseling Individu"
+                }
+            ],
+            "tipeBayar": "Umum/Kredit",
+            "totalBiaya": 645000,
+            "ttl": "22/07/2001",
+            "umur": 19
+        },
+        {
+            "BPJS": false,
+            "dokter": "Drg. Asep (Spesialis Gigi)",
+            "id": 16,
+            "jenis_kelamin": "L",
+            "nama": "JIJK",
+            "nik": "3273152207060003",
+            "obat": [
+                {
+                    "hargaObat": 20000,
+                    "namaObat": "Obat Luka Dalam Mulut"
+                },
+                {
+                    "hargaObat": 8000,
+                    "namaObat": "Antibiotik Gigi"
+                },
+                {
+                    "hargaObat": 20000,
+                    "namaObat": "Obat Luka Dalam Mulut"
+                },
+                {
+                    "hargaObat": 8000,
+                    "namaObat": "Antibiotik Gigi"
+                }
+            ],
+            "poli": "Poliklinik Gigi",
+            "tindakan": [
+                {
+                    "hargaTindakan": 500000,
+                    "namaTindakan": "Scaling Karang Gigi"
+                }
+            ],
+            "tipeBayar": "Umum/Kredit",
+            "totalBiaya": 556000,
+            "ttl": "22/07/2006",
+            "umur": 22
+        },
+        {
+            "BPJS": false,
+            "dokter": "Dr. Rahman (Spesialis Umum)",
+            "id": 17,
+            "jenis_kelamin": "L",
+            "nama": "Jojo",
+            "nik": "3273152207060003",
+            "obat": [
+                {
+                    "hargaObat": 7000,
+                    "namaObat": "Vitamin untuk Daya Tahan Tubuh"
+                },
+                {
+                    "hargaObat": 5000,
+                    "namaObat": "Obat Sakit Kepala"
+                },
+                {
+                    "hargaObat": 8000,
+                    "namaObat": "Obat Maag"
+                }
+            ],
+            "poli": "Poliklinik Umum",
+            "tindakan": [
+                {
+                    "hargaTindakan": 80000,
+                    "namaTindakan": "Pemeriksaan Umum"
+                }
+            ],
+            "tipeBayar": "Umum/Kredit",
+            "totalBiaya": 100000,
+            "ttl": "22/07/2006",
+            "umur": 20
+        },
+        {
+            "BPJS": false,
+            "dokter": "Dr. Seno (Spesialis Orthopedi)",
+            "id": 18,
+            "jenis_kelamin": "L",
+            "nama": "Jojo",
+            "nik": "1234567891234567",
+            "obat": [
+                {
+                    "hargaObat": 15000,
+                    "namaObat": "Obat Nyeri Sendi"
+                },
+                {
+                    "hargaObat": 10000,
+                    "namaObat": "Obat Anti Radang Sendi"
+                },
+                {
+                    "hargaObat": 15000,
+                    "namaObat": "Obat Nyeri Sendi"
+                }
+            ],
+            "poli": "Poliklinik Orthopedi",
+            "tindakan": [
+                {
+                    "hargaTindakan": 3000000,
+                    "namaTindakan": "Operasi Lutut"
+                }
+            ],
+            "tipeBayar": "Umum/Kredit",
+            "totalBiaya": 3040000,
+            "ttl": "22/07/2006",
+            "umur": 20
+        },
+        {
+            "BPJS": false,
+            "dokter": "Dr. Andi (Spesialis Anak)",
+            "id": 19,
+            "jenis_kelamin": "L",
+            "nama": "JOJO",
+            "nik": "3273152207060003",
+            "obat": [
+                {
+                    "hargaObat": 7000,
+                    "namaObat": "Vitamin Anak"
+                },
+                {
+                    "hargaObat": 5000,
+                    "namaObat": "Obat Penurun Demam Anak"
+                },
+                {
+                    "hargaObat": 5000,
+                    "namaObat": "Obat Penurun Demam Anak"
+                },
+                {
+                    "hargaObat": 8000,
+                    "namaObat": "Obat Batuk Anak"
+                }
+            ],
+            "poli": "Poliklinik Anak",
+            "tindakan": [
+                {
+                    "hargaTindakan": 80000,
+                    "namaTindakan": "Pemeriksaan Kesehatan"
+                }
+            ],
+            "tipeBayar": "Umum/Kredit",
+            "totalBiaya": 105000,
+            "ttl": "22/07/2006",
+            "umur": 20
+        },
+        {
+            "BPJS": false,
+            "dokter": "Dr. Sari (Spesialis Kejiwaan)",
+            "id": 20,
+            "jenis_kelamin": "L",
+            "nama": "JOJO",
+            "nik": "3273152207060003",
+            "obat": [
+                {
+                    "hargaObat": 20000,
+                    "namaObat": "Obat Penenang"
+                },
+                {
+                    "hargaObat": 10000,
+                    "namaObat": "Obat Anti Cemas"
+                },
+                {
+                    "hargaObat": 15000,
+                    "namaObat": "Obat Tidur"
+                },
+                {
+                    "hargaObat": 15000,
+                    "namaObat": "Obat Tidur"
+                },
+                {
+                    "hargaObat": 20000,
+                    "namaObat": "Obat Penenang"
+                },
+                {
+                    "hargaObat": 25000,
+                    "namaObat": "Obat Stres"
+                }
+            ],
+            "poli": "Poliklinik Kejiwaan",
+            "tindakan": [
+                {
+                    "hargaTindakan": 300000,
+                    "namaTindakan": "Konseling Individu"
+                }
+            ],
+            "tipeBayar": "Umum/Kredit",
+            "totalBiaya": 405000,
             "ttl": "22/07/2006",
             "umur": 20
         }
