@@ -1,11 +1,10 @@
-#include <iostream> // cin cout
+#include <iostream> // cin cout dll
 #include <string>  // fungsi - fungsi string (substr dll)
-#include <iomanip> // fungsi - fungsi setw dan lain-lain
-#include <thread> // delay
+#include <iomanip> // fungsi - fungsi setw dan lain-lain 
 #include <vector> // vector
 #include <fstream> // file handling
 #include <conio.h> // untuk getch
-#include <cstdlib> // untuk system
+#include <cstdlib> // untuk system()
 #include <cctype> // untuk toupper, tolower, is digit dll
 #include "json.hpp" //untuk jsonnya
 
@@ -15,27 +14,32 @@
 // MENGGUNAKAN CMD BISA KARENA TIDAK ADA BUGGED DARI FUNGSI system("cls");
 // Pergi Ke Direktori Folder Menyimpan File Ini lalu ketikan cmd "g++ projek.cpp -o projek.exe" lalu ketikan cmd "projek.exe"
 
+//Pewarnaan
 const char* GREEN = "\033[32m";
 const char* RED = "\033[31m";
 const char* YELLOW = "\033[33m";
 const char* RESET = "\033[0m";
 
+//Penggunaan Json
 using json = nlohmann::json;
 using namespace std;
 
+//Global Variable untuk fileJSON
 const string fileJSON = "data.json";
+//Global Variable Json Pasien sebagai array
 json pasien = json::array();
+// Struct Obat
 struct Obat{
     string namaObat;
     long long int hargaObat;
 };
-
+// Struct Tindakan
 struct Tindakan{
     string namaTindakan;
     long long int hargaTindakan;
 };
 
-//function prototypes
+//function prototypes 
 void pembayaran();
 void pemilihanPoli();
 void poliGigi();
@@ -78,6 +82,8 @@ int cekInputInteger(const string& prompt) {
     }
 }
 
+//Error Handling Input Umur
+// Prosedur Cek Input Umur digunakan untuk mengecek apakah input yang dimasukan oleh user adalah angka
 int cekInputUmur(const string &prompt){
     int input;
     while (true) {
@@ -90,7 +96,8 @@ int cekInputUmur(const string &prompt){
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
 // Memunculkan pesan             
             cout << RED << "Input harus Diisi dengan Angka dan Tidak Boleh Kosong\n" << RESET;
-        }else if(input > 100 || input <= 0){
+//Apabila umur lebih dari 120 dan kurang dari 0 maka akan memunculkan pesan error        
+        }else if(input > 120 || input <= 0){
             cout << RED << "Input terlalu tinggi atau terlalu rendah!\n" << RESET;
         } else {
 // Apabila input adalah angka maka akan mengembalikan nilai input            
@@ -109,10 +116,9 @@ string cekInputString(const string &prompt) {
     while (true) {
         cout << GREEN << prompt << YELLOW;
         getline(cin, input);
-        // Check if input is empty or contains invalid characters
         bool valid = true;
 
-        //Mengiterasi setiap karakter pada input untuk mengecek apakah ada angka
+        //Mengiterasi setiap karakter pada input untuk mengecek apakah ada angka atau spasi
         //range based for loop (for each)
         for (char ch : input) {
             if (!isalpha(ch) && !isspace(ch)) { 
@@ -155,7 +161,7 @@ string cekInputKelamin(const string& prompt) {
 }
 
 //Prosedur BPJS pada tahap penentuan biaya
-// Memilki parameter bool bpjs, struct tindakan, int biaya
+// Memilki parameter bool bpjs, struct tindakan
 bool bpjs(bool bpjs, Tindakan &tindakan) {
 //Apabila user pengguna BPJS maka biaya akan menjadi 0 lalu mencetak pesan dan mengembalikan true    
     if(bpjs) {
@@ -194,6 +200,7 @@ bool cekBPJS(const string& prompt) {
 }
 // Error cek Input tanggal
 string cekInputDate(const string& prompt){
+    //Mendefinisikan variabel date
     struct tm date = {};
     string input;
     while(true){
@@ -242,7 +249,9 @@ string cekInputNIK(const string &prompt) {
         // Cek apakah input kosong?
         if (input.empty()) {
             cout << RED << "Input tidak boleh kosong. Coba lagi.\n" << RESET;
+        // Cek apakah input.size kurang dari 16?
         }else if(input.size() < 16){
+        // Cek apakah input.size lebih dari 16?
             cout << RED << "Input NIK tidak valid. Harus 16 Angka!\n" << RESET;
         }else if(input.size() > 16){    
             cout << RED << "Input NIK tidak valid. Harus 16 Angka!\n" << RESET;
@@ -250,6 +259,7 @@ string cekInputNIK(const string &prompt) {
         // Cek apakah input hanya mengandung angka
         else {
             bool isNumeric = true;
+            //Cek apakah input hanya mengandung angka/digit apabila input bukan angka maka akan false
             for (char ch : input) {
                 if (!isdigit(ch)) {
                     isNumeric = false;
@@ -266,6 +276,7 @@ string cekInputNIK(const string &prompt) {
         }
     }
 }
+
 // Load data dari json
 json loadData() {
     std::ifstream file(fileJSON);
@@ -332,7 +343,7 @@ void readItems() {
     cout << GREEN << string(40, '-') << endl; 
     cout << GREEN << "Data Pasien:" << RESET << endl;
     for (const auto& pasien : data["Pasien"]) {
-        // Memeriksa dan menampilkan data pasien dengan aman
+        // Memeriksa dan menampilkan data pasien dengan aman, jika data null maka akan diganti dengan message "Tidak Tersedia"
         cout << GREEN << "ID: " << (pasien.contains("id") ? pasien["id"] : "Tidak Tersedia") << endl;
         cout << GREEN << "Nama: " << (pasien.contains("nama") ? pasien["nama"] : "Tidak Tersedia") << endl;
         cout << GREEN << "NIK: " << (pasien.contains("nik") ? pasien["nik"] : "Tidak Tersedia") << endl;
@@ -458,15 +469,15 @@ void updateItem() {
 // Delete Item
 void deleteItem() {
     json data = loadData();
-    string id;
+    int id;
 
     cout << RED << "Masukkan Id Pasien yang ingin dihapus: ";
     cin >> id;
 
     bool found = false;
-
+//Menghapus data pasien sesuai ID yang diinput
     for (size_t i = 0; i < data["Pasien"].size(); ++i) {
-        if (to_string(data["Pasien"][i]["id"]) == id) {
+        if (data["Pasien"][i]["id"] == id) {
             data["Pasien"].erase(i);
             saveData(data);
             cout << GREEN << "Pasien berhasil dihapus!" << RESET << endl;
@@ -495,14 +506,14 @@ pembatas();
 }
 // Fungsi Pendaftaran
 void pendaftaran() {
-    system("cls");
+    system("cls");//Menghapus layar
 //Memuat data dari File melalui prosedur loadData()
     menu();
     json data = loadData();
     
     if (!data.contains("Pasien") || !data["Pasien"].is_array()) {
         data["Pasien"] = json::array();
-    }
+    }//Cek apakah data mengandung Pasien atau data Pasien bukan array lalu mengembalikan data["Pasien"] sebagai array
 
     int id = data["Pasien"].size() + 1;
     string nik = cekInputNIK("Masukan NIK Pasien : ");
@@ -515,7 +526,7 @@ void pendaftaran() {
     //Mendeklarasikan data ke dalam variabel yang akan di simpan di file JSON yang telah dibuat
      pasien = {{"id", id}, {"nama", nama}, {"nik", nik}, {"umur", umur}, {"jenis_kelamin", jenis_kelamin}, {"ttl", ttl}, {"BPJS", bpjs}};
 
-     data["Pasien"].push_back(pasien);    
+     data["Pasien"].push_back(pasien);  //Menambahkan data pasien   
    
     //Save data yang telah diinput kedalam file
     saveData(data);
@@ -765,7 +776,7 @@ void pilihDokter(int id_poli) {
                     string dokterGigi[] = {"Drg. Asep (Spesialis Gigi)", "Drg. Budi (Spesialis Gigi)", 
                                            "Drg. Anugrah (Spesialis Gigi)", "Drg. Bisma (Spesialis Gigi)", 
                                            "Drg. Vivi (Spesialis Gigi)"};
-                    dokterName = dokterGigi[id_dokter - 1];
+                    dokterName = dokterGigi[id_dokter - 1]; // Memasukan Data Dokter ke variabel dokterName lalu ke JSON
                     pembatas();
                 } else {
                     cout << RED << "Pilihan tidak valid, silakan coba lagi.\n" << RESET;
@@ -1113,6 +1124,8 @@ void pemilihanObat(Obat obat[], int jumlahObat) {
     srand(time(0));
     int quantityObat = 1 + rand() % jumlahObat;
 
+    //Jika BPJS tidak aktif
+    //Maka akan mengenerate obat dengan harga obat tersebut
     if (!bpjsStatus) {  
         for (int i = 0; i <= quantityObat; i++) {
             int random = rand() % jumlahObat; 
@@ -1131,7 +1144,7 @@ void pemilihanObat(Obat obat[], int jumlahObat) {
         }
         saveData(data); // Save data 
     } else {
-        // Semua harga obat jadi 0
+        //Jika BPJS aktif maka akan mengenerate obat dengan harga obat 0
         for (int i = 0; i <= quantityObat; i++) {
             int random = rand() % jumlahObat; // Generate random index
             cout << GREEN << obat[random].namaObat << endl;
@@ -1171,7 +1184,7 @@ void pembayaran() {
             // Print setiap data tindakan dan menjumlahkan totalnya
             cout << GREEN << "Tindakan:\n";
             for (size_t j = 0; j < data["Pasien"][i]["tindakan"].size(); ++j) {
-                // Debug print to check if the data is accessed properly
+                // Print setiap tindakan
                 cout << " - " << "Nama Tindakan: " << data["Pasien"][i]["tindakan"][j]["namaTindakan"];
                 cout << " (Rp-" << data["Pasien"][i]["tindakan"][j]["hargaTindakan"] << ")"<< endl;
                 
@@ -1205,6 +1218,7 @@ void pembayaran() {
         cout << RED << "Tidak ada data pasien untuk diperbarui!\n" << RESET;
     }
 
+    //Jika BPJS aktif, tipeBayar akan diisi dengan status "BPJS"
     if(bpjsStatus){
         data["Pasien"].back()["tipeBayar"] = "BPJS";
         saveData(data);
@@ -1218,9 +1232,11 @@ void pembayaran() {
         
         if (!data["Pasien"].empty()) {
             if(pembayaran == 1){
+                //Jika BPJS tidak aktif, tipeBayar akan diisi dengan status "Umum/Kredit"
                 data["Pasien"].back()["tipeBayar"] = "Umum/Kredit";
                 saveData(data);
             }else if(pembayaran == 2){
+                //Jika BPJS aktif, tipeBayar akan diisi dengan status "Umum/Cash"
                 data["Pasien"].back()["tipeBayar"] = "Umum/Cash";
                 saveData(data);
             }else{
@@ -1247,6 +1263,7 @@ void pembayaran() {
                     cout << RED << "Pembayaran gagal. Saldo tidak cukup!\n";
                 }
             } while (!done);
+            //Cash
         } else if (pembayaran == 2) {
             bool done = false;
             do {
