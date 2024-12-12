@@ -36,6 +36,409 @@
             "totalBiaya": 204000,
             "ttl": "22/07/2006",
             "umur": 20
+        },
+        {
+            "BPJS": false,
+            "id": 4,
+            "jenis_kelamin": "L",
+            "nama": "Joseph",
+            "nik": "1234567891234567",
+            "poli": "Poliklinik Gigi",
+            "ttl": "22/07/2006",
+            "umur": 20
+        },
+        {
+            "BPJS": false,
+            "id": 5,
+            "jenis_kelamin": "L",
+            "nama": "Joseph",
+            "nik": "1234567891234567",
+            "poli": "Poliklinik Gigi",
+            "ttl": "22/07/2006",
+            "umur": 20
+        },
+        {
+            "BPJS": false,
+            "dokter": "Drg. Asep (Spesialis Gigi)",
+            "id": 6,
+            "jenis_kelamin": "L",
+            "nama": "Joseph",
+            "nik": "3273152207060003",
+            "obat": [
+                {
+                    "hargaObat": 10000,
+                    "namaObat": "Obat Gusi Bengkak"
+                },
+                {
+                    "hargaObat": 5000,
+                    "namaObat": "Penghilang Nyeri Gigi"
+                },
+                {
+                    "hargaObat": 10000,
+                    "namaObat": "Obat Gusi Bengkak"
+                }
+            ],
+            "poli": "Poliklinik Gigi",
+            "tindakan": [
+                {
+                    "hargaTindakan": 500000,
+                    "namaTindakan": "Scaling Karang Gigi"
+                },
+                {
+                    "hargaTindakan": 250000,
+                    "namaTindakan": "Pembersihan Gigi"
+                }
+            ],
+            "tipeBayar": "Umum/Kredit",
+            "totalBiaya": 775000,
+            "ttl": "22/07/2006",
+            "umur": 20
+        },
+        {
+            "BPJS": false,
+            "dokter": "Drg. Asep (Spesialis Gigi)",
+            "id": 7,
+            "jenis_kelamin": "L",
+            "nama": "Joseph",
+            "nik": "3273152207060003",
+            "obat": [
+                {
+                    "hargaObat": 8000,
+                    "namaObat": "Antibiotik Gigi"
+                },
+                {
+                    "hargaObat": 10000,
+                    "namaObat": "Obat Gusi Bengkak"
+                },
+                {
+                    "hargaObat": 15000,
+                    "namaObat": "Obat Kumur Antiseptik"
+                },
+                {
+                    "hargaObat": 20000,
+                    "namaObat": "Obat Luka Dalam Mulut"
+                }
+            ],
+            "poli": "Poliklinik Gigi",
+            "tindakan": [
+                {
+                    "hargaTindakan": 500000,
+                    "namaTindakan": "Scaling Karang Gigi"
+                }
+            ],
+            "tipeBayar": "Umum/Kredit",
+            "totalBiaya": 553000,
+            "ttl": "22/07/2006",
+            "umur": 20
+        },
+        {
+            "BPJS": false,
+            "dokter": "Drg. Asep (Spesialis Gigi)",
+            "id": 8,
+            "jenis_kelamin": "L",
+            "nama": "Joseph",
+            "nik": "3273152207060003",
+            "obat": [
+                {
+                    "hargaObat": 15000,
+                    "namaObat": "Obat Kumur Antiseptik"
+                },
+                {
+                    "hargaObat": 20000,
+                    "namaObat": "Obat Luka Dalam Mulut"
+                }
+            ],
+            "poli": "Poliklinik Gigi",
+            "tindakan": [
+                {
+                    "hargaTindakan": 500000,
+                    "namaTindakan": "Scaling Karang Gigi"
+                }
+            ],
+            "tipeBayar": "Umum/Kredit",
+            "totalBiaya": 535000,
+            "ttl": "22/07/2006",
+            "umur": 20
+        },
+        {
+            "BPJS": false,
+            "dokter": "Dr. Rahman (Spesialis Umum)",
+            "id": 9,
+            "jenis_kelamin": "L",
+            "nama": "Jojo",
+            "nik": "3273152207060003",
+            "obat": [
+                {
+                    "hargaObat": 8000,
+                    "namaObat": "Obat Maag"
+                },
+                {
+                    "hargaObat": 12000,
+                    "namaObat": "Penghilang Nyeri Otot"
+                },
+                {
+                    "hargaObat": 8000,
+                    "namaObat": "Obat Maag"
+                },
+                {
+                    "hargaObat": 7000,
+                    "namaObat": "Vitamin untuk Daya Tahan Tubuh"
+                },
+                {
+                    "hargaObat": 7000,
+                    "namaObat": "Vitamin untuk Daya Tahan Tubuh"
+                },
+                {
+                    "hargaObat": 12000,
+                    "namaObat": "Penghilang Nyeri Otot"
+                },
+                {
+                    "hargaObat": 7000,
+                    "namaObat": "Vitamin untuk Daya Tahan Tubuh"
+                },
+                {
+                    "hargaObat": 5000,
+                    "namaObat": "Penurun Demam"
+                },
+                {
+                    "hargaObat": 8000,
+                    "namaObat": "Obat Maag"
+                }
+            ],
+            "poli": "Poliklinik Umum",
+            "tindakan": [
+                {
+                    "hargaTindakan": 80000,
+                    "namaTindakan": "Pemeriksaan Umum"
+                },
+                {
+                    "hargaTindakan": 100000,
+                    "namaTindakan": "Pemeriksaan Kesehatan"
+                },
+                {
+                    "hargaTindakan": 80000,
+                    "namaTindakan": "Pemeriksaan Umum"
+                }
+            ],
+            "tipeBayar": "Umum/Kredit",
+            "totalBiaya": 334000,
+            "ttl": "22/07/2006",
+            "umur": 20
+        },
+        {
+            "BPJS": false,
+            "dokter": "Drg. Asep (Spesialis Gigi)",
+            "id": 10,
+            "jenis_kelamin": "L",
+            "nama": "Joseph",
+            "nik": "3273152207060003",
+            "obat": [
+                {
+                    "hargaObat": 8000,
+                    "namaObat": "Antibiotik Gigi"
+                },
+                {
+                    "hargaObat": 8000,
+                    "namaObat": "Antibiotik Gigi"
+                },
+                {
+                    "hargaObat": 20000,
+                    "namaObat": "Obat Luka Dalam Mulut"
+                }
+            ],
+            "poli": "Poliklinik Gigi",
+            "tindakan": [
+                {
+                    "hargaTindakan": 500000,
+                    "namaTindakan": "Scaling Karang Gigi"
+                }
+            ],
+            "totalBiaya": 536000,
+            "ttl": "22/07/2006",
+            "umur": 20
+        },
+        {
+            "BPJS": false,
+            "dokter": "Dr. Rahman (Spesialis Umum)",
+            "id": 11,
+            "jenis_kelamin": "L",
+            "nama": "Joseph",
+            "nik": "1234567891234567",
+            "obat": [
+                {
+                    "hargaObat": 8000,
+                    "namaObat": "Obat Maag"
+                },
+                {
+                    "hargaObat": 5000,
+                    "namaObat": "Obat Sakit Kepala"
+                }
+            ],
+            "poli": "Poliklinik Umum",
+            "tindakan": null,
+            "tipeBayar": "Umum/Cash",
+            "totalBiaya": 13000,
+            "ttl": "22/07/2006",
+            "umur": 20
+        },
+        {
+            "BPJS": false,
+            "dokter": "Drg. Asep (Spesialis Gigi)",
+            "id": 12,
+            "jenis_kelamin": "L",
+            "nama": "Joko",
+            "nik": "3273152207060003",
+            "obat": [
+                {
+                    "hargaObat": 15000,
+                    "namaObat": "Obat Kumur Antiseptik"
+                },
+                {
+                    "hargaObat": 20000,
+                    "namaObat": "Obat Luka Dalam Mulut"
+                },
+                {
+                    "hargaObat": 5000,
+                    "namaObat": "Penghilang Nyeri Gigi"
+                },
+                {
+                    "hargaObat": 5000,
+                    "namaObat": "Penghilang Nyeri Gigi"
+                },
+                {
+                    "hargaObat": 8000,
+                    "namaObat": "Antibiotik Gigi"
+                },
+                {
+                    "hargaObat": 15000,
+                    "namaObat": "Obat Kumur Antiseptik"
+                }
+            ],
+            "poli": "Poliklinik Gigi",
+            "tindakan": null,
+            "tipeBayar": "Umum/Cash",
+            "totalBiaya": 68000,
+            "ttl": "22/07/2006",
+            "umur": 20
+        },
+        {
+            "BPJS": false,
+            "dokter": "Dr. Hasan (Spesialis Kejiwaan)",
+            "id": 13,
+            "jenis_kelamin": "L",
+            "nama": "Fikri",
+            "nik": "3273152207060003",
+            "obat": [
+                {
+                    "hargaObat": 25000,
+                    "namaObat": "Obat Stres"
+                },
+                {
+                    "hargaObat": 10000,
+                    "namaObat": "Obat Anti Cemas"
+                },
+                {
+                    "hargaObat": 15000,
+                    "namaObat": "Obat Tidur"
+                },
+                {
+                    "hargaObat": 20000,
+                    "namaObat": "Obat Penenang"
+                },
+                {
+                    "hargaObat": 10000,
+                    "namaObat": "Obat Anti Cemas"
+                },
+                {
+                    "hargaObat": 25000,
+                    "namaObat": "Obat Stres"
+                }
+            ],
+            "poli": "Poliklinik Kejiwaan",
+            "tindakan": [
+                {
+                    "hargaTindakan": 300000,
+                    "namaTindakan": "Konseling Individu"
+                }
+            ],
+            "tipeBayar": "Umum/Kredit",
+            "totalBiaya": 405000,
+            "ttl": "22/07/2006",
+            "umur": 2
+        },
+        {
+            "BPJS": false,
+            "dokter": "Drg. Asep (Spesialis Gigi)",
+            "id": 14,
+            "jenis_kelamin": "L",
+            "nama": "Fikri",
+            "nik": "3273152207060003",
+            "obat": [
+                {
+                    "hargaObat": 10000,
+                    "namaObat": "Obat Gusi Bengkak"
+                },
+                {
+                    "hargaObat": 20000,
+                    "namaObat": "Obat Luka Dalam Mulut"
+                },
+                {
+                    "hargaObat": 20000,
+                    "namaObat": "Obat Luka Dalam Mulut"
+                }
+            ],
+            "poli": "Poliklinik Gigi",
+            "tindakan": [
+                {
+                    "hargaTindakan": 500000,
+                    "namaTindakan": "Scaling Karang Gigi"
+                }
+            ],
+            "tipeBayar": "Umum/Kredit",
+            "totalBiaya": 550000,
+            "ttl": "22/07/2006",
+            "umur": 20
+        },
+        {
+            "BPJS": false,
+            "dokter": "Drg. Asep (Spesialis Gigi)",
+            "id": 15,
+            "jenis_kelamin": "L",
+            "nama": "Fikri",
+            "nik": "3273152207060003",
+            "obat": [
+                {
+                    "hargaObat": 15000,
+                    "namaObat": "Obat Kumur Antiseptik"
+                },
+                {
+                    "hargaObat": 8000,
+                    "namaObat": "Antibiotik Gigi"
+                },
+                {
+                    "hargaObat": 15000,
+                    "namaObat": "Obat Kumur Antiseptik"
+                },
+                {
+                    "hargaObat": 8000,
+                    "namaObat": "Antibiotik Gigi"
+                },
+                {
+                    "hargaObat": 10000,
+                    "namaObat": "Obat Gusi Bengkak"
+                }
+            ],
+            "poli": "Poliklinik Gigi",
+            "tindakan": [
+                {
+                    "hargaTindakan": 500000,
+                    "namaTindakan": "Scaling Karang Gigi"
+                }
+            ],
+            "tipeBayar": "Umum/Cash",
+            "totalBiaya": 556000,
+            "ttl": "22/07/2006",
+            "umur": 20
         }
     ]
 }
