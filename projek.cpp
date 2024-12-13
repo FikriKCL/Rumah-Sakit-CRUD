@@ -257,7 +257,7 @@ int hiddenInput(char maxChoice) {
     } else {
         // Jika input tidak valid (misalnya karakter selain angka yang valid)
         cout << RED << "Pilihan tidak valid!" << endl;
-        pembatas(); // Menambahkan pemisah visual (fungsi pembatas() diasumsikan untuk keperluan tampilan)
+        pembatas(); // Menambahkan pemisah visual (fungsi pembatas() untuk keperluan tampilan)
         return -1; // Mengembalikan -1 jika input tidak valid
     }
 }
