@@ -1227,6 +1227,7 @@ void pembayaran() {
             // mencetak total biaya
             cout << GREEN << "Total Biaya Obat & Tindakan adalah Rp-" << totalBiaya << endl;
 
+
             break;  // Keluar loop ketika id ketemu
         }
     }
@@ -1278,9 +1279,11 @@ void pembayaran() {
                     cout << GREEN << "Pembayaran Kredit berhasil, terima kasih!\n";
                     cout << GREEN << "Sisa uang di kredit anda : " << uang - totalBiaya << endl;
                     done = true;
+                    system("pause");
                 } else if (uang == totalBiaya) {
                     cout << GREEN << "Pembayaran Kredit berhasil, terima kasih!\n";
                     done = true;
+                    system("pause");
                 } else {
                     cout << RED << "Pembayaran gagal. Saldo tidak cukup!\n";
                 }
@@ -1295,10 +1298,12 @@ void pembayaran() {
                 } else if (uang == totalBiaya) {
                     cout << GREEN << "Pembayaran berhasil, terima kasih!\n";
                     done = true;
+                    system("pause");
                 } else if (uang > totalBiaya) {
                     cout << GREEN << "Pembayaran berhasil, terima kasih!\n";
                     cout << GREEN << "Kembalian anda : " << uang - totalBiaya << endl;
                     done = true;
+                    system("pause");
                 }
             } while (!done);
         } else {
